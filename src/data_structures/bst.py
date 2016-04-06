@@ -55,8 +55,8 @@ class Tree:
             "\t%s;\n%s\n" % (
                 self.data,
                 "\n".join(self._get_dot())
-        )
-    ))
+            )
+        ))
 
     def _get_dot(self):
         """recursively prepare a dot graph entry for this node."""
