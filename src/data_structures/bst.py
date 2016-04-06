@@ -3,21 +3,42 @@
 
 class Node:
     def __init__(self, val):
-        self.l = None
-        self.r = None
-        self.v = val
+        self.left = None
+        self.right = None
+        self.data = val
 
 
 class Tree:
     def __init__(self):
         self.root = None
 
+    def _insertLeft(head, val):
+        head = self.root
+        new_node = Node(val)
+        head.left = new_node
+
+    def _insertRight(head, val):
+        head = self.root
+        new_node = Node(val)
+        head.right = new_node
+
     def insert(self, val):
         '''
         will insert the value val into the BST. If val is already present,
         it will be ignored.
         '''
-        pass
+        head = self.root
+        while head:
+            if head.data == val:
+                break
+            elif not head.left:
+                _insertLeft(head, val)
+            elif not head.right:
+                _insertRight(head, val)
+            elif head.data > val:
+                head = head.left
+            elif head.data < val:
+                head = head.right
 
     def contains(self, val):
         '''
@@ -76,3 +97,4 @@ class Tree:
             r = random.randint(0, 1e9)
             yield "\tnull%s [shape=point];" % r
             yield "\t%s -> null%s;" % (self.data, r)
+

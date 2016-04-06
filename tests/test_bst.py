@@ -4,20 +4,20 @@ import pytest
 
 from data_structures.bst import Tree
 
-CONSTRUCTOR_LISTS = [
-    [],
-    [1, 2, 3],
-    [1, 3, 2, 5, 9, 8],
-]
+# CONSTRUCTOR_LISTS = [
+#     1
+# ]
 
 
-@pytest.mark.parametrize('val', CONSTRUCTOR_LISTS)
-def test_insert(val):
+# @pytest.mark.parametrize('val', CONSTRUCTOR_LISTS)
+def test_insert():
     '''
     will insert the value val into the BST. If val is already present,
     it will be ignored.
     '''
-    pass
+    tree = Tree()
+    tree.insert(7)
+    assert tree.data in tree
 
 
 CONTAINS_LIST = [
