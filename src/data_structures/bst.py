@@ -2,22 +2,20 @@
 
 
 class Node(object):
+    """Create Node class."""
+
     def __init__(self, val=None):
+        """Init Node."""
         self.left = None
         self.right = None
         self.data = val
 
-    # def _insert_left(self, val):
-    #     node = Node(val)
-    #     self.left = node
-
-    # def _insert_left(self, val):
-    #     node = Node(val)
-    #     self.right = node
-
 
 class Tree(object):
+    """Create Tree class."""
+
     def __init__(self):
+        """Init Tree."""
         self.root = Node()
 
     def insert(self, val):
@@ -25,7 +23,6 @@ class Tree(object):
         will insert the value val into the BST. If val is already present,
         it will be ignored.
         """
-        tree = Tree()
         # node = Node(val)
         if self.root.data is None:
             self.root.data = val
@@ -51,7 +48,30 @@ class Tree(object):
         """
         will return True if val is in the BST, False if not.
         """
-        pass
+        if self.root.data is None:
+            return False
+        elif self.root.data == val:
+            return True
+        else:
+            head = self.root
+            while head:
+                if head.data > val:
+                    if head.left:
+                        if head.left.data == val:
+                            return True
+                        else:
+                            head = head.left
+                    else:
+                        return False
+                elif head.data < val:
+                    if head.right:
+                        if head.right.data == val:
+                            return True
+                        else:
+                            head = head.right
+                    else:
+                        return False
+
 
     def size(self):
         """

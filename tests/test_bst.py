@@ -35,17 +35,24 @@ def test_insert():
 
 
 
-CONTAINS_LIST = [
-    [],
-]
+# CONTAINS_LIST = [
+#     [],
+# ]
 
 
-@pytest.mark.parametrize('val', CONTAINS_LIST)
-def contains(val):
+# @pytest.mark.parametrize('val', CONTAINS_LIST)
+def test_contains():
     '''
     will return True if val is in the BST, False if not.
     '''
-    pass
+    tree = Tree()
+    tree.insert(2)
+    tree.insert(3)
+    tree.insert(4)
+    tree.insert(5)
+    assert tree.contains(4) == True
+    assert tree.contains(8) == False
+
 
 
 def size():
