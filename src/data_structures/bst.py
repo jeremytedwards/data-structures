@@ -32,6 +32,7 @@ class Node(object):
             right_depth = 0
         return max(left_depth, right_depth) + 1
 
+
 class Tree(object):
     """Create Tree class."""
 
@@ -63,7 +64,6 @@ class Tree(object):
                     else:
                         head.right = node
 
-
     def contains(self, val):
         """
         will return True if val is in the BST, False if not.
@@ -92,7 +92,6 @@ class Tree(object):
                     else:
                         return False
 
-
     def size(self):
         """
         will return the integer size of the BST (equal to the total number of values
@@ -101,7 +100,6 @@ class Tree(object):
         if self.root is None:
             return 0
         return self.root.count_node()
-
 
     def depth(self):
         """

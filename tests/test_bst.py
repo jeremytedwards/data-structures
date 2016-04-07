@@ -4,63 +4,37 @@ import pytest
 
 from data_structures.bst import Tree
 
-# CONSTRUCTOR_LISTS = [
-#     1,
-#     5,
-#     7,
-# ]
 
-
-# @pytest.mark.parametrize('val', CONSTRUCTOR_LISTS)
 def test_insert():
-    '''
-    will insert the value val into the BST. If val is already present,
-    it will be ignored.
-    '''
     # Test that the value was inserted
-    # tree = Tree()
-    # tree.insert(val)
-    # assert tree.root.data == val
-
-    # test that there are not 2 of the same value
     tree = Tree()
     tree.insert(2)
     assert tree.root.data == 2
+
+    # TODO: Test that there are not 2 of the same value
+    tree.insert(1)
     tree.insert(1)
     assert tree.root.left.data == 1
-    tree.insert(7)
-    assert tree.root.right.data == 7
-    tree.insert(5)
-    assert tree.root.right.left.data == 5
 
 
-
-# CONTAINS_LIST = [
-#     [],
-# ]
-
-
-# @pytest.mark.parametrize('val', CONTAINS_LIST)
 def test_contains():
-    '''
-    will return True if val is in the BST, False if not.
-    '''
     tree = Tree()
     tree.insert(2)
     tree.insert(3)
     tree.insert(4)
     tree.insert(5)
+
+    # will return True if val is in the BST, False if not.
     assert tree.contains(4) == True
     assert tree.contains(8) == False
 
 
-
 def test_size():
-    '''
-    will return the integer size of the BST (equal to the total number of values
-    stored in the tree). It will return 0 if the tree is empty.
-    '''
+    # Returns 0 when empty
     tree = Tree()
+    assert tree.size() == 0
+
+    # Returns size when there is size
     tree.insert(2)
     tree.insert(3)
     tree.insert(4)
@@ -70,40 +44,39 @@ def test_size():
 
 
 def test_depth():
-    '''
-    will return an integer representing the total number of levels in the tree.
-    If there is one value, the depth should be 1, if two values it will be 2, if t
-    hree values it may be 2 or three, depending, etc.
-    '''
+    # Test depth of 0
     tree = Tree()
     assert tree.depth() == 0
+
+    # Test depth of 2
     tree.insert(5)
     tree.insert(3)
     tree.insert(6)
     assert tree.depth() == 2
+
+    # Test depth of 3
     tree.insert(8)
     tree.insert(4)
     assert tree.depth() == 3
 
 
-
 def test_balance():
-    '''
-    will return an integer, positive or negative that represents how well balanced
-    the tree is. Trees which are higher on the left than the right should return a
-    positive value, trees which are higher on the right than the left should return
-    a negative value. An ideally-balanced tree should return 0.
-    '''
     tree = Tree()
     tree.insert(5)
     tree.insert(3)
     tree.insert(6)
     tree.insert(8)
     tree.insert(4)
+
+    # An ideally-balanced tree should return 0.
     assert tree.balance() == 0
     tree.insert(9)
+
+    # Trees which are higher on the left than the right should return a positive value
     assert tree.balance() == 1
     tree.insert(2)
     tree.insert(1)
     tree.insert(0)
+
+    # Trees which are higher on the right than the left should return a negative value
     assert tree.balance() == -1
