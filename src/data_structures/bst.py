@@ -10,25 +10,45 @@ class Node(object):
         self.right = None
         self.data = val
 
+    def count_node(self):
+        if self.left:
+            left_count = self.left.count_node()
+        else:
+            left_count = 0
+        if self.right:
+            right_count = self.right.count_node()
+        else:
+            right_count = 0
+        return left_count + right_count + 1
+
+    def depth_count(self):
+        if self.left:
+            left_depth = self.left.depth_count()
+        else:
+            left_depth = 0
+        if self.right:
+            right_depth = self.right.depth_count()
+        else:
+            right_depth = 0
+        return max(left_depth, right_depth) + 1
 
 class Tree(object):
     """Create Tree class."""
 
     def __init__(self):
         """Init Tree."""
-        self.root = Node()
+        self.root = None
 
     def insert(self, val):
         """
         will insert the value val into the BST. If val is already present,
         it will be ignored.
         """
-        # node = Node(val)
-        if self.root.data is None:
-            self.root.data = val
+        node = Node(val)
+        if self.root is None:
+            self.root = node
         else:
             head = self.root
-            node = Node(val)
             while head:
                 if head.data == val:
                     break
@@ -48,7 +68,7 @@ class Tree(object):
         """
         will return True if val is in the BST, False if not.
         """
-        if self.root.data is None:
+        if self.root is None:
             return False
         elif self.root.data == val:
             return True
@@ -78,7 +98,8 @@ class Tree(object):
         will return the integer size of the BST (equal to the total number of values
         stored in the tree). It will return 0 if the tree is empty.
         """
-        pass
+        return self.root.count_node()
+
 
     def depth(self):
         """
@@ -86,7 +107,7 @@ class Tree(object):
         If there is one value, the depth should be 1, if two values it will be 2, if t
         hree values it may be 2 or three, depending, etc.
         """
-        pass
+        return self.root.depth_count()
 
     def balance(self):
         """

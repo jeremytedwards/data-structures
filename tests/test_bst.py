@@ -55,21 +55,35 @@ def test_contains():
 
 
 
-def size():
+def test_size():
     '''
     will return the integer size of the BST (equal to the total number of values
     stored in the tree). It will return 0 if the tree is empty.
     '''
-    pass
+    tree = Tree()
+    tree.insert(2)
+    tree.insert(3)
+    tree.insert(4)
+    tree.insert(5)
+    tree.insert(8)
+    assert tree.size() == 5
 
 
-def depth():
+def test_depth():
     '''
     will return an integer representing the total number of levels in the tree.
     If there is one value, the depth should be 1, if two values it will be 2, if t
     hree values it may be 2 or three, depending, etc.
     '''
-    pass
+    tree = Tree()
+    tree.insert(5)
+    tree.insert(3)
+    tree.insert(6)
+    assert tree.depth() == 2
+    tree.insert(8)
+    tree.insert(4)
+    assert tree.depth() == 3
+
 
 
 def balance():
