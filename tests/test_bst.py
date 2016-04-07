@@ -12,9 +12,10 @@ def test_insert():
     assert tree.root.data == 2
 
     # TODO: Test that there are not 2 of the same value
-    tree.insert(1)
-    tree.insert(1)
-    assert tree.root.left.data == 1
+    tree_size_1 = Tree()
+    tree_size_1.insert(1)
+    tree_size_1.insert(1)
+    assert tree_size_1.size() == 1
 
 
 def test_contains():
