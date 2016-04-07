@@ -98,6 +98,8 @@ class Tree(object):
         will return the integer size of the BST (equal to the total number of values
         stored in the tree). It will return 0 if the tree is empty.
         """
+        if self.root is None:
+            return 0
         return self.root.count_node()
 
 
@@ -107,6 +109,8 @@ class Tree(object):
         If there is one value, the depth should be 1, if two values it will be 2, if t
         hree values it may be 2 or three, depending, etc.
         """
+        if self.root is None:
+            return 0
         return self.root.depth_count()
 
     def balance(self):
@@ -116,7 +120,23 @@ class Tree(object):
         positive value, trees which are higher on the right than the left should return
         a negative value. An ideally-balanced tree should return 0.
         """
-        pass
+        if self.root.data == 0:
+            return 0
+        if self.root.left is None:
+            if self.root.right is None:
+                return 0
+            else:
+                return 1
+        else:
+            if self.root.right is None:
+                return -1
+            else:
+                if self.root.left.depth_count() > self.root.right.depth_count():
+                    return -1
+                elif self.root.left.depth_count() == self.root.right.depth_count():
+                    return 0
+                else:
+                    return 1
 
     def get_dot(self):
         """return the tree with root 'self' as a dot graph for visualization"""

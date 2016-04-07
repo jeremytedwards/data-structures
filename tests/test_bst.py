@@ -76,6 +76,7 @@ def test_depth():
     hree values it may be 2 or three, depending, etc.
     '''
     tree = Tree()
+    assert tree.depth() == 0
     tree.insert(5)
     tree.insert(3)
     tree.insert(6)
@@ -86,11 +87,23 @@ def test_depth():
 
 
 
-def balance():
+def test_balance():
     '''
     will return an integer, positive or negative that represents how well balanced
     the tree is. Trees which are higher on the left than the right should return a
     positive value, trees which are higher on the right than the left should return
     a negative value. An ideally-balanced tree should return 0.
     '''
-    pass
+    tree = Tree()
+    tree.insert(5)
+    tree.insert(3)
+    tree.insert(6)
+    tree.insert(8)
+    tree.insert(4)
+    assert tree.balance() == 0
+    tree.insert(9)
+    assert tree.balance() == 1
+    tree.insert(2)
+    tree.insert(1)
+    tree.insert(0)
+    assert tree.balance() == -1
