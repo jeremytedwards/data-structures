@@ -4,30 +4,34 @@ import pytest
 
 from data_structures.bst import Tree
 
-CONSTRUCTOR_LISTS = [
-    1,
-    5,
-    7,
-]
+# CONSTRUCTOR_LISTS = [
+#     1,
+#     5,
+#     7,
+# ]
 
 
-@pytest.mark.parametrize('val', CONSTRUCTOR_LISTS)
-def test_insert(val):
+# @pytest.mark.parametrize('val', CONSTRUCTOR_LISTS)
+def test_insert():
     '''
     will insert the value val into the BST. If val is already present,
     it will be ignored.
     '''
     # Test that the value was inserted
-    tree = Tree()
-    tree.insert(val)
-    assert tree.root.data == val
+    # tree = Tree()
+    # tree.insert(val)
+    # assert tree.root.data == val
 
     # test that there are not 2 of the same value
     tree = Tree()
     tree.insert(2)
-    print(tree.get_dot())
-
     assert tree.root.data == 2
+    tree.insert(1)
+    assert tree.root.left.data == 1
+    tree.insert(7)
+    assert tree.root.right.data == 7
+    tree.insert(5)
+    assert tree.root.right.left.data == 5
 
 
 

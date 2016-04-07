@@ -7,19 +7,18 @@ class Node(object):
         self.right = None
         self.data = val
 
-    def _insert_left(self, val):
-        node = Node(val)
-        self.left = node
+    # def _insert_left(self, val):
+    #     node = Node(val)
+    #     self.left = node
 
-    def _insert_left(self, val):
-        node = Node(val)
-        self.right = node
+    # def _insert_left(self, val):
+    #     node = Node(val)
+    #     self.right = node
 
 
 class Tree(object):
     def __init__(self):
         self.root = Node()
-
 
     def insert(self, val):
         """
@@ -27,23 +26,26 @@ class Tree(object):
         it will be ignored.
         """
         tree = Tree()
+        # node = Node(val)
         if self.root.data is None:
             self.root.data = val
         else:
             head = self.root
+            node = Node(val)
             while head:
                 if head.data == val:
                     break
-                elif not head.left:
-                    head._insert_left(val)
-                    break
-                elif not head.right:
-                    head._insert_right(val)
-                    break
                 elif head.data > val:
-                    head = head.left
+                    if head.left:
+                        head = head.left
+                    else:
+                        head.left = node
                 elif head.data < val:
-                    head = head.right
+                    if head.right:
+                        head = head.right
+                    else:
+                        head.right = node
+
 
     def contains(self, val):
         """
