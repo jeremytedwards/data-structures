@@ -1,39 +1,45 @@
 # coding=utf-8
 
 
-class Tree:
-    def __init__(self):
+class Node(object):
+    def __init__(self, val=None):
         self.left = None
         self.right = None
-        self.data = None
-
-    # def __iter__(self):
-    #     """
-    #     Iterate over the values of the elements in the tree
-    #     """
+        self.data = val
 
     def _insert_left(self, val):
-        self.left.data = val
+        node = Node(val)
+        self.left = node
 
-    def _insert_right(self, val):
-        self.right.data = val
+    def _insert_left(self, val):
+        node = Node(val)
+        self.right = node
+
+
+class Tree(object):
+    def __init__(self):
+        self.root = Node()
+
 
     def insert(self, val):
         """
         will insert the value val into the BST. If val is already present,
         it will be ignored.
         """
-        if self.data is None:
-            self.data = val
+        tree = Tree()
+        if self.root.data is None:
+            self.root.data = val
         else:
-            head = self
+            head = self.root
             while head:
                 if head.data == val:
                     break
                 elif not head.left:
                     head._insert_left(val)
+                    break
                 elif not head.right:
                     head._insert_right(val)
+                    break
                 elif head.data > val:
                     head = head.left
                 elif head.data < val:
@@ -71,10 +77,10 @@ class Tree:
 
     def get_dot(self):
         """return the tree with root 'self' as a dot graph for visualization"""
-        return "digraph G{\n%s}" % ("" if self.data is None else (
+        return "digraph G{\n%s}" % ("" if self.root.data is None else (
             "\t%s;\n%s\n" % (
-                self.data,
-                "\n".join(self._get_dot())
+                self.root.data,
+                "\n".join(self.root._get_dot())
             )
         ))
 

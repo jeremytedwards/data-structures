@@ -20,13 +20,15 @@ def test_insert(val):
     # Test that the value was inserted
     tree = Tree()
     tree.insert(val)
-    assert tree.data == val
+    assert tree.root.data == val
 
     # test that there are not 2 of the same value
     tree = Tree()
     tree.insert(2)
-    tree.insert(7)
-    assert tree.data == 2
+    print(tree.get_dot())
+
+    assert tree.root.data == 2
+
 
 
 CONTAINS_LIST = [
