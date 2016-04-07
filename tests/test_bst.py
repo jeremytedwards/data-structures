@@ -17,7 +17,7 @@ def test_insert():
     '''
     tree = Tree()
     tree.insert(7)
-    assert tree.data in tree
+    assert tree.data == 7
 
 
 CONTAINS_LIST = [
