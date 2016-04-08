@@ -47,22 +47,21 @@ class Node(object):
         # Return me
         yield self.data
 
-    # def breadth_order(self):
-    #     visited = []
-    #     to_visit = [self]
-    #     while to_visit:
-    #         node = to_visit.pop()
-    #         if node not in visited:
-    #             visited.append(node)
-    #             yield node.data
-    #             if self._left:
-    #                 to_visit = to_visit + [self._left]
-    #             if self._right:
-    #                 to_visit = to_visit + [self._right]
-
-
-        # for item in visited:
-        # return visited
+    def breadth_order(self):
+        visited = []
+        to_visit = [self]
+        while to_visit:
+            node = to_visit.pop(0)
+            # print(node.data)
+            if node not in visited:
+                visited.append(node)
+                if node._left:
+                    to_visit.append(node._left)
+                if node._right:
+                    to_visit.append(node._right)
+        result = [node.data for node in visited]
+        print(result)
+        return result
 
     def count_node(self):
         if self._left:
@@ -96,10 +95,10 @@ class Tree(object):
         for idx, val in enumerate(args):
             self.insert(val)
 
-    def __iter__(self):
-        if self.root:
-            for item in self.in_order():
-                yield item
+    # def __iter__(self):
+    #     if self.root:
+    #         for item in self.in_order():
+    #             yield item
 
     def insert(self, val):
         """
@@ -119,11 +118,14 @@ class Tree(object):
                         head = head._left
                     else:
                         head._left = node
+                        break
+                        # break or back to while loop
                 elif head.data < val:
                     if head._right:
                         head = head._right
                     else:
                         head._right = node
+                        break
 
     def contains(self, val):
         """
@@ -198,25 +200,17 @@ class Tree(object):
                     return 1
 
     def in_order(self):
-        return self.in_order()
+        return self.root.in_order()
 
     def pre_order(self):
-        return self.pre_order()
+        return self.root.pre_order()
 
     def post_order(self):
-        return self.post_order()
+        return self.root.post_order()
 
     def breadth_order(self):
-        """Traverse the tree breadth-first."""
-        if self.root:
-            q = deque((self.root,))
-            while q:
-                node = q.pop()
-                yield node.val
-                if node._left:
-                    q.appendleft(node._left)
-                if node._right:
-                    q.appendleft(node._right)
+        return self.root.breadth_order()
+        # call on self.root not self cause it's node method
 
     def get_dot(self):
         """return the tree with root 'self' as a dot graph for visualization"""

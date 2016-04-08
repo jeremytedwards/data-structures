@@ -65,14 +65,8 @@ def test_balance():
 
 
 def test_breadth_order():
-    tree = Tree(5, 3, 7, 1, 4, 6, 8, 2, 9)
-    print(iter(tree))
-    # for each in tree.root:
-    #     print(each.data)
-
+    tree_val = [5, 3, 7, 1, 4, 6, 8, 2, 9]
+    tree = Tree(*tree_val) # get value from list without bracket
     result = tree.breadth_order()
-    print(result)
-    # for each in list(result):
-    #     print(each.data)
+    assert result == tree_val
 
-    assert True #tree == result
