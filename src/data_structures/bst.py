@@ -1,6 +1,6 @@
 # coding=utf-8
-from collections import deque
 import random
+
 
 class Node(object):
     """Create Node class."""
@@ -9,6 +9,7 @@ class Node(object):
         """Init Node."""
         self._left = None
         self._right = None
+        self._parent = None
         self.data = val
 
     def in_order(self):
@@ -82,24 +83,24 @@ class Node(object):
             right_depth = 0
         return max(left_depth, right_depth) + 1
 
-    def _get_dot(self):
-        """recursively prepare a dot graph entry for this node."""
-        if self._left is not None:
-            yield "\t%s -> %s;" % (self.data, self._left.data)
-            for i in self._left._get_dot():
-                yield i
-        elif self._right is not None:
-            r = random.randint(0, 1e9)
-            yield "\tnull%s [shape=point];" % r
-            yield "\t%s -> null%s;" % (self.data, r)
-        if self._right is not None:
-            yield "\t%s -> %s;" % (self.data, self._right.data)
-            for i in self._right._get_dot():
-                yield i
-        elif self._left is not None:
-            r = random.randint(0, 1e9)
-            yield "\tnull%s [shape=point];" % r
-            yield "\t%s -> null%s;" % (self.data, r)
+    # def _get_dot(self):
+    #     """recursively prepare a dot graph entry for this node."""
+    #     if self._left is not None:
+    #         yield "\t%s -> %s;" % (self.data, self._left.data)
+    #         for i in self._left._get_dot():
+    #             yield i
+    #     elif self._right is not None:
+    #         r = random.randint(0, 1e9)
+    #         yield "\tnull%s [shape=point];" % r
+    #         yield "\t%s -> null%s;" % (self.data, r)
+    #     if self._right is not None:
+    #         yield "\t%s -> %s;" % (self.data, self._right.data)
+    #         for i in self._right._get_dot():
+    #             yield i
+    #     elif self._left is not None:
+    #         r = random.randint(0, 1e9)
+    #         yield "\tnull%s [shape=point];" % r
+    #         yield "\t%s -> null%s;" % (self.data, r)
 
 
 class Tree(object):
@@ -110,6 +111,50 @@ class Tree(object):
         self.root = None
         for idx, val in enumerate(args):
             self.insert(val)
+
+    def _gen_tree_from_ord_list(self, ordered_list):
+        if ordered_list:
+            half = len(ordered_list) // 2
+
+            # yield the middle item round down
+            yield ordered_list[half]
+
+            # yield the middle of the left
+            for left in self._gen_tree_from_ord_list(ordered_list[:half]):
+                yield left
+
+            # yield the middle of the right
+            for right in self._gen_tree_from_ord_list(ordered_list[half+1:]):
+                yield right
+
+    def _balance_tree(self):
+        in_order_tree_list = []
+        for item in self.root.in_order():
+            in_order_tree_list.append(item)
+
+        temp_tree = Tree()
+        for value in self._gen_tree_from_ord_list(in_order_tree_list):
+            temp_tree.insert(value)
+
+        self.root = temp_tree.root
+
+    def _find(self, value):
+        """ returns a node with the given value"""
+
+    def _shift_up_right(self):
+
+        pass
+
+    def _shift_up_left(self):
+        pass
+
+    def delete(self, val):
+        """if is leaf"""
+
+        """if has only left"""
+
+        """if has 2 children or if has only right"""
+        pass
 
     def insert(self, val):
         """
@@ -222,11 +267,11 @@ class Tree(object):
     def breadth_order(self):
         return self.root.breadth_order()
 
-    def get_dot(self):
-        """return the tree with root 'self' as a dot graph for visualization"""
-        return "digraph G{\n%s}" % ("" if self.root.data is None else (
-            "\t%s;\n%s\n" % (
-                self.root.data,
-                "\n".join(self.root._get_dot())
-            )
-        ))
+    # def get_dot(self):
+    #     """return the tree with root 'self' as a dot graph for visualization"""
+    #     return "digraph G{\n%s}" % ("" if self.root.data is None else (
+    #         "\t%s;\n%s\n" % (
+    #             self.root.data,
+    #             "\n".join(self.root._get_dot())
+    #         )
+    #     ))

@@ -3,6 +3,7 @@
 from data_structures.bst import Tree
 
 
+
 def test_insert():
     """Test insert."""
     # Test that the value was inserted
@@ -141,3 +142,29 @@ def test_breadth_order():
     for each in tree_2.breadth_order():
         result_2.append(each)
     assert result_2 == tree_val
+
+
+def test__gen_tree_from_ord_list():
+    test_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    tree = Tree(*test_list)
+
+    result = []
+    result_true = [6, 3, 2, 1, 5, 4, 9, 8, 7, 10]
+
+    for item in tree._gen_tree_from_ord_list(test_list):
+        result.append(item)
+    assert result_true == result
+
+
+def test__balance_tree():
+    test_tree = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    tree = Tree(*test_tree)
+
+    result = []
+    result_true = [6, 3, 2, 1, 5, 4, 9, 8, 7, 10]
+
+    tree._balance_tree()
+
+    for item in tree.pre_order():
+        result.append(item)
+    assert result_true == result
