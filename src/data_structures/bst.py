@@ -52,7 +52,6 @@ class Node(object):
         to_visit = [self]
         while to_visit:
             node = to_visit.pop(0)
-            # print(node.data)
             if node not in visited:
                 visited.append(node)
                 yield node.data
@@ -60,9 +59,6 @@ class Node(object):
                     to_visit.append(node._left)
                 if node._right:
                     to_visit.append(node._right)
-        # # result = [node.data for node in visited]
-        # print(result)
-        # return result
 
     def count_node(self):
         if self._left:
@@ -95,11 +91,6 @@ class Tree(object):
         self.root = None
         for idx, val in enumerate(args):
             self.insert(val)
-
-    # def __iter__(self):
-    #     if self.root:
-    #         for item in self.in_order():
-    #             yield item
 
     def insert(self, val):
         """
@@ -211,7 +202,6 @@ class Tree(object):
 
     def breadth_order(self):
         return self.root.breadth_order()
-        # call on self.root not self cause it's node method?
 
     def get_dot(self):
         """return the tree with root 'self' as a dot graph for visualization"""
