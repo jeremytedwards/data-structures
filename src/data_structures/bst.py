@@ -1,4 +1,5 @@
 # coding=utf-8
+from collections import deque
 
 
 class Node(object):
@@ -17,7 +18,6 @@ class Node(object):
                 yield item
         # Return me
         yield self.data
-
         # Return all the _right
         if self._right:
             for item in self._right.in_order():
@@ -26,53 +26,62 @@ class Node(object):
     def pre_order(self):
         # Return me
         yield self.data
-
         # Return all the _left items
         if self._left:
-            for item in self._left.in_order():
+            for item in self._left.pre_order():
                 yield item
-
         # Return all the _right
         if self._right:
-            for item in self._right.in_order():
+            for item in self._right.pre_order():
                 yield item
 
     def post_order(self):
         # Return all the _left items
         if self._left:
-            for item in self._left.in_order():
+            for item in self._left.post_order():
                 yield item
-
         # Return all the _right
         if self._right:
-            for item in self._right.in_order():
+            for item in self._right.post_order():
                 yield item
-
         # Return me
         yield self.data
 
-    def bredth_order(self):
-        pass
+    # def breadth_order(self):
+    #     visited = []
+    #     to_visit = [self]
+    #     while to_visit:
+    #         node = to_visit.pop()
+    #         if node not in visited:
+    #             visited.append(node)
+    #             yield node.data
+    #             if self._left:
+    #                 to_visit = to_visit + [self._left]
+    #             if self._right:
+    #                 to_visit = to_visit + [self._right]
 
+
+        # for item in visited:
+        # return visited
 
     def count_node(self):
-        if self.left:
-            left_count = self.left.count_node()
+        if self._left:
+            left_count = self._left.count_node()
         else:
             left_count = 0
-        if self.right:
-            right_count = self.right.count_node()
+        if self._right:
+            right_count = self._right.count_node()
         else:
             right_count = 0
         return left_count + right_count + 1
 
     def depth_count(self):
-        if self.left:
-            left_depth = self.left.depth_count()
+        if self._left:
+            left_depth = self._left.depth_count()
         else:
             left_depth = 0
-        if self.right:
-            right_depth = self.right.depth_count()
+        if self._right:
+            right_depth = self._right.depth_count()
         else:
             right_depth = 0
         return max(left_depth, right_depth) + 1
@@ -81,9 +90,16 @@ class Node(object):
 class Tree(object):
     """Create Tree class."""
 
-    def __init__(self):
+    def __init__(self, *args):
         """Init Tree."""
         self.root = None
+        for idx, val in enumerate(args):
+            self.insert(val)
+
+    def __iter__(self):
+        if self.root:
+            for item in self.in_order():
+                yield item
 
     def insert(self, val):
         """
@@ -121,19 +137,19 @@ class Tree(object):
             head = self.root
             while head:
                 if head.data > val:
-                    if head.left:
-                        if head.left.data == val:
+                    if head._left:
+                        if head._left.data == val:
                             return True
                         else:
-                            head = head.left
+                            head = head._left
                     else:
                         return False
                 elif head.data < val:
-                    if head.right:
-                        if head.right.data == val:
+                    if head._right:
+                        if head._right.data == val:
                             return True
                         else:
-                            head = head.right
+                            head = head._right
                     else:
                         return False
 
@@ -165,21 +181,42 @@ class Tree(object):
         """
         if self.root.data == 0:
             return 0
-        if self.root.left is None:
-            if self.root.right is None:
+        if self.root._left is None:
+            if self.root._right is None:
                 return 0
             else:
                 return 1
         else:
-            if self.root.right is None:
+            if self.root._right is None:
                 return -1
             else:
-                if self.root.left.depth_count() > self.root.right.depth_count():
+                if self.root._left.depth_count() > self.root._right.depth_count():
                     return -1
-                elif self.root.left.depth_count() == self.root.right.depth_count():
+                elif self.root._left.depth_count() == self.root._right.depth_count():
                     return 0
                 else:
                     return 1
+
+    def in_order(self):
+        return self.in_order()
+
+    def pre_order(self):
+        return self.pre_order()
+
+    def post_order(self):
+        return self.post_order()
+
+    def breadth_order(self):
+        """Traverse the tree breadth-first."""
+        if self.root:
+            q = deque((self.root,))
+            while q:
+                node = q.pop()
+                yield node.val
+                if node._left:
+                    q.appendleft(node._left)
+                if node._right:
+                    q.appendleft(node._right)
 
     def get_dot(self):
         """return the tree with root 'self' as a dot graph for visualization"""
@@ -192,9 +229,9 @@ class Tree(object):
 
     def _get_dot(self):
         """recursively prepare a dot graph entry for this node."""
-        if self.left is not None:
-            yield "\t%s -> %s;" % (self.data, self.left.data)
-            for i in self.left._get_dot():
+        if self._left is not None:
+            yield "\t%s -> %s;" % (self.data, self._left.data)
+            for i in self._left._get_dot():
                 yield i
         elif self.right is not None:
             r = random.randint(0, 1e9)
@@ -208,4 +245,3 @@ class Tree(object):
             r = random.randint(0, 1e9)
             yield "\tnull%s [shape=point];" % r
             yield "\t%s -> null%s;" % (self.data, r)
-
