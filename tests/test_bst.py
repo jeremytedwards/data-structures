@@ -66,13 +66,14 @@ def test_balance():
 
 def test_breadth_order():
     tree = Tree(5, 3, 7, 1, 4, 6, 8, 2, 9)
+    tree.get_dot()
     print(iter(tree))
     # for each in tree.root:
     #     print(each.data)
 
-    result = tree.breadth_order()
-    print(result)
-    # for each in list(result):
-    #     print(each.data)
+    # result = tree.breadth_order()
+    # print(result)
+    for each in tree.breadth_order():
+        print(each.data)
 
     assert True #tree == result
