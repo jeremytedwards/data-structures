@@ -73,11 +73,11 @@ def test_balance():
     assert tree.balance() == 0
     tree.insert(9)
 
-    # Trees which are higher on the left than the right should return a positive value
+    # Trees which are higher on the _left than the _right should return a positive value
     assert tree.balance() == 1
     tree.insert(2)
     tree.insert(1)
     tree.insert(0)
 
-    # Trees which are higher on the right than the left should return a negative value
+    # Trees which are higher on the _right than the _left should return a negative value
     assert tree.balance() == -1

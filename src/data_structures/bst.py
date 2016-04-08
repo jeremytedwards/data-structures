@@ -6,9 +6,54 @@ class Node(object):
 
     def __init__(self, val=None):
         """Init Node."""
-        self.left = None
-        self.right = None
+        self._left = None
+        self._right = None
         self.data = val
+
+    def in_order(self):
+        # Return all the _left items
+        if self._left:
+            for item in self._left.in_order():
+                yield item
+        # Return me
+        yield self.data
+
+        # Return all the _right
+        if self._right:
+            for item in self._right.in_order():
+                yield item
+
+    def pre_order(self):
+        # Return me
+        yield self.data
+
+        # Return all the _left items
+        if self._left:
+            for item in self._left.in_order():
+                yield item
+
+        # Return all the _right
+        if self._right:
+            for item in self._right.in_order():
+                yield item
+
+    def post_order(self):
+        # Return all the _left items
+        if self._left:
+            for item in self._left.in_order():
+                yield item
+
+        # Return all the _right
+        if self._right:
+            for item in self._right.in_order():
+                yield item
+
+        # Return me
+        yield self.data
+
+    def bredth_order(self):
+        pass
+
 
     def count_node(self):
         if self.left:
@@ -54,15 +99,15 @@ class Tree(object):
                 if head.data == val:
                     break
                 elif head.data > val:
-                    if head.left:
-                        head = head.left
+                    if head._left:
+                        head = head._left
                     else:
-                        head.left = node
+                        head._left = node
                 elif head.data < val:
-                    if head.right:
-                        head = head.right
+                    if head._right:
+                        head = head._right
                     else:
-                        head.right = node
+                        head._right = node
 
     def contains(self, val):
         """
@@ -114,8 +159,8 @@ class Tree(object):
     def balance(self):
         """
         will return an integer, positive or negative that represents how well balanced
-        the tree is. Trees which are higher on the left than the right should return a
-        positive value, trees which are higher on the right than the left should return
+        the tree is. Trees which are higher on the _left than the _right should return a
+        positive value, trees which are higher on the _right than the _left should return
         a negative value. An ideally-balanced tree should return 0.
         """
         if self.root.data == 0:

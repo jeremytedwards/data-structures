@@ -38,11 +38,11 @@ class BinHeap(object):
                 left = (pos << 1) + 1
                 right = left + 1
 
-                # checks if we have a left
+                # checks if we have a _left
                 if left >= len(self._list):
                     break
 
-                # if left is the bigger/only child
+                # if _left is the bigger/only child
                 if right >= len(self._list) or self._list[left] > self._list[right]:
                     bigger_child = left
                 else:
