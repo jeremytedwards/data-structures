@@ -1,7 +1,7 @@
 # coding=utf-8
 
 from data_structures.bst import Tree
-
+import pytest
 
 
 def test_insert():
@@ -29,6 +29,12 @@ def test_insert():
     for item in tree_2.in_order():
         list_2.append(item)
     assert list_2 == result
+
+    # Test inserted node's parent
+    tree_3 = Tree(5, 7, 3, 8, 6)
+    tree_3.insert(4)
+    node = tree_3.find_node(4)
+    assert node._parent.data == 3
 
 
 def test_contains():
@@ -168,3 +174,47 @@ def test__balance_tree():
     for item in tree.pre_order():
         result.append(item)
     assert result_true == result
+
+
+def test_find():
+    tree = Tree(5, 3, 6, 8, 4, 9)
+    result = tree.find_node(3)
+    # import pdb; pdb.set_trace()
+    assert result.data == 3
+
+    tree = Tree(5, 3, 6, 8, 4, 9)
+    result = tree.find_node(7)
+    # import pdb; pdb.set_trace()
+    assert result == None
+
+
+def test_delete():
+    tree = Tree(5, 3, 6, 8, 4, 9, 2, 1, 0)
+    # delete a leaf
+    tree.delete(9)
+    assert tree.find_node(9) == None
+    assert tree.find_node(8)._right == None
+
+    tree = Tree(5, 3, 6, 8, 4, 9, 2, 1, 0)
+    # delete node with only left child
+    tree.delete(1)
+    assert tree.find_node(1) == None
+    assert tree.find_node(2)._left.data == 0
+
+    tree = Tree(5, 3, 6, 8, 4, 9, 2, 1, 0)
+    # delete a node with right or both child
+    tree.delete(3)
+    assert tree.find_node(3) == None
+    assert tree.find_node(5)._left.data == 4
+    assert tree.find_node(4)._left.data == 2
+
+    tree = Tree(5, 3, 6, 8, 4, 9, 2, 1, 0)
+    # delete a nonexistent value
+    with pytest.raises(ValueError):
+        tree.delete(7)
+
+    tree = Tree(5, 3, 6, 8, 4, 9, 2, 1, 0)
+    # delete root
+    tree.delete(5)
+    assert tree.find_node(5) == None
+    assert tree.root.data == 6

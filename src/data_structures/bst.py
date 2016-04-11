@@ -83,6 +83,45 @@ class Node(object):
             right_depth = 0
         return max(left_depth, right_depth) + 1
 
+    def _find_node(self, value):
+        """ returns a node with the given value."""
+        # import pdb; pdb.set_trace()
+        # if self is None:
+        #     return False
+        if self.data == value:
+            return self
+        elif self.data > value:
+            if self._left is None:
+                return None
+            return self._left._find_node(value)
+        else:
+            if self._right is None:
+                return None
+            return self._right._find_node(value)
+
+    def _shift_up_right(self):
+        """Shift up right node."""
+        if self._parent._right == self:
+            self._parent._right = self._right
+        else:
+            self._parent._left = self._right
+        if self._left:
+            self._right._left = self._left
+        # self = None
+
+
+    def _shift_up_left(self):
+        """Shift up left node."""
+        if self._parent._left == self:
+            self._parent._left = self._left
+        else:
+            self._parent._right = self._left
+        # self = None
+
+
+
+
+
     # def _get_dot(self):
     #     """recursively prepare a dot graph entry for this node."""
     #     if self._left is not None:
@@ -138,23 +177,65 @@ class Tree(object):
 
         self.root = temp_tree.root
 
-    def _find(self, value):
-        """ returns a node with the given value"""
 
-    def _shift_up_right(self):
+    # def _find_node(self, node, value):
+    #     """ returns a node with the given value."""
+    #     if node is None:
+    #         return Node()
+    #     elif node.data == value:
+    #         return node
+    #     elif node.data > value:
+    #         self._find_node(node._left, value)
+    #     else:
+    #         self._find_node(node._right, value)
 
-        pass
+    def find_node(self, val):
+        """Find node."""
+        return self.root._find_node(val)
 
-    def _shift_up_left(self):
-        pass
+    # def _shift_up_right(self):
+    #     """Shift up right node."""
+    #     if self._parent._right == self:
+    #         self._parent._right = self._right
+    #     if self._parent._left == self:
+    #         self._parent._left = self._right
+    #     if self._left:
+    #         self._right._left = self._left
+    #     self = None
+
+
+    # def _shift_up_left(self):
+    #     """Shift up left node."""
+    #     if self._parent._left == self:
+    #         self._parent._left = self._left
+    #     if self._parent._right == self:
+    #         self._parent._right = self._left
+    #     self = None
 
     def delete(self, val):
-        """if is leaf"""
+        to_delete = self.find_node(val)
+        # TODO: delete a nonexistent
+        if to_delete is None:
+            raise ValueError
+        # TODO: delete root
+        # repalce with the left most node of right subtree
 
-        """if has only left"""
+        if to_delete._left is None and to_delete._right is None:
+            """if is leaf."""
+            if to_delete._parent._left == to_delete:
+                to_delete._parent._left = None
+            else:
+                to_delete._parent._right = None
+            # to_delete == None
+            # to_delete is not part of tree
+        elif to_delete._left is not None and to_delete._right is None:
+            """if has only left."""
+            to_delete._shift_up_left()
+        else:
+            """if has 2 children or if has only right."""
+            # call _shift_up_right on to delete, not the one will be shifted up
+            to_delete._shift_up_right()
 
-        """if has 2 children or if has only right"""
-        pass
 
     def insert(self, val):
         """
@@ -174,6 +255,7 @@ class Tree(object):
                         head = head._left
                     else:
                         head._left = node
+                        node._parent = head
                         break
                         # break or back to while loop
                 elif head.data < val:
@@ -181,6 +263,7 @@ class Tree(object):
                         head = head._right
                     else:
                         head._right = node
+                        node._parent = head
                         break
 
     def contains(self, val):
