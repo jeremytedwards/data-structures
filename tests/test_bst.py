@@ -215,10 +215,16 @@ def test_delete():
         tree.delete(7)
 
     tree = Tree(10, 8, 12, 6, 11, 13)
-    # delete root
+    # delete root node of tree > 1
     tree.delete(10)
     with pytest.raises(ValueError):
         tree.find_node(10)
     assert tree.root.data == 11
-    assert tree.find_node(12)._left.data == None
+    assert tree.find_node(12)._left == None
 
+    tree = Tree(10)
+    # delete root of tree == 1
+    tree.delete(10)
+    with pytest.raises(AttributeError):
+        tree.find_node(10)
+    assert tree.root == None

@@ -13,6 +13,7 @@ class Node(object):
         self.data = val
 
     def in_order(self):
+        """Returns the data of all nodes in-order (all left, me, all right)"""
         # Return all the _left items
         if self._left:
             for data in self._left.in_order():
@@ -25,6 +26,7 @@ class Node(object):
                 yield data
 
     def pre_order(self):
+        """Returns the data of all nodes in pre-order (me, all left, all right)"""
         # Return me
         yield self.data
         # Return all the _left items
@@ -37,6 +39,7 @@ class Node(object):
                 yield data
 
     def post_order(self):
+        """Returns the data of all nodes in post-order (all left, all right, me)"""
         # Return all the _left items
         if self._left:
             for data in self._left.post_order():
@@ -49,6 +52,7 @@ class Node(object):
         yield self.data
 
     def breadth_order(self):
+        """Returns the data of all nodes in breadth-order (height=0, 1, 2, ...)"""
         visited = []
         to_visit = [self]
         while to_visit:
@@ -62,6 +66,7 @@ class Node(object):
                     to_visit.append(node._right)
 
     def count_node(self):
+        """Returns a total count of the left and right children of a node"""
         if self._left:
             left_count = self._left.count_node()
         else:
@@ -73,6 +78,7 @@ class Node(object):
         return left_count + right_count + 1
 
     def depth_count(self):
+        """Returns a total count of the left and right children of a node"""
         if self._left:
             left_depth = self._left.depth_count()
         else:
@@ -85,9 +91,6 @@ class Node(object):
 
     def _find_node(self, value):
         """ returns a node with the given value."""
-        # import pdb; pdb.set_trace()
-        # if self is None:
-        #     return False
         if self.data == value:
             return self
         elif self.data > value:
@@ -107,7 +110,6 @@ class Node(object):
             self._parent._left = self._right
         if self._left:
             self._right._left = self._left
-        # self = None
 
     def _shift_up_left(self):
         """Shift up left node."""
@@ -115,14 +117,21 @@ class Node(object):
             self._parent._left = self._left
         else:
             self._parent._right = self._left
-        # self = None
 
     def _reset_by_value(self, value):
+        """
+        For a given node replace the value of with the lowest value from my right tree,
+        then delete that value from my right tree.
+        """
         # find the lowest value of a tree
+        to_find = value
         for item in self._right.in_order():
+            to_find = item
             self.data = item
             break
-        node = self._right._find_node(value)
+        # find node from the right tree
+        node = self._right._find_node(to_find)
+        # set that nodes parent to None
         node._parent._left = None
 
     def _get_dot(self):
@@ -147,7 +156,6 @@ class Node(object):
 
 class Tree(object):
     """Create Tree class."""
-
     def __init__(self, *args):
         """Init Tree."""
         self.root = None
@@ -157,6 +165,7 @@ class Tree(object):
             self.insert(val)
 
     def _gen_tree_from_ord_list(self, ordered_list):
+        """Given an ordered list this function will create a tree from those values"""
         if ordered_list:
             half = len(ordered_list) // 2
 
@@ -172,6 +181,10 @@ class Tree(object):
                 yield right
 
     def _balance_tree(self):
+        """
+        Given a tree(self) this function will pull the values out and rebuild a balanced
+        tree from those values and replace the tree.
+        """
         in_order_tree_list = []
         for item in self.root.in_order():
             in_order_tree_list.append(item)
@@ -183,7 +196,7 @@ class Tree(object):
         self.root = temp_tree.root
 
     def find_node(self, val):
-        """Find node."""
+        """Finds a node by value in a tree."""
         to_find = self.root._find_node(val)
         if to_find is None:
             raise ValueError
@@ -191,7 +204,9 @@ class Tree(object):
             return to_find
 
     def delete(self, val):
-        # delete a nonexistent - Raise a ValueError
+        """Deletes a node by value in a tree."""
+
+        # deleting a nonexistent val - Raises a ValueError
         try:
             to_delete = self.find_node(val)
         except ValueError:
@@ -212,19 +227,16 @@ class Tree(object):
                     to_delete._parent._left = None
                 else:
                     to_delete._parent._right = None
-                # to_delete == None
-                # to_delete is not part of tree
             elif to_delete._left is not None and to_delete._right is None:
                 """if has only left."""
                 to_delete._shift_up_left()
             else:
                 """if has 2 children or if has only right."""
-                # call _shift_up_right on to delete, not the one will be shifted up
                 to_delete._shift_up_right()
 
     def insert(self, val):
         """
-        will insert the value val into the BST. If val is already present,
+        Will insert the value val into the BST. If val is already present,
         it will be ignored.
         """
         node = Node(val)
@@ -242,7 +254,6 @@ class Tree(object):
                         head._left = node
                         node._parent = head
                         break
-                        # break or back to while loop
                 elif head.data < val:
                     if head._right:
                         head = head._right
@@ -253,7 +264,7 @@ class Tree(object):
 
     def contains(self, val):
         """
-        will return True if val is in the BST, False if not.
+        Will return True if val is in the BST, False if not.
         """
         if self.root is None:
             return False
@@ -281,7 +292,7 @@ class Tree(object):
 
     def size(self):
         """
-        will return the integer size of the BST (equal to the total number of values
+        Will return the integer size of the BST (equal to the total number of values
         stored in the tree). It will return 0 if the tree is empty.
         """
         if self.root is None:
@@ -290,7 +301,7 @@ class Tree(object):
 
     def depth(self):
         """
-        will return an integer representing the total number of levels in the tree.
+        Will return an integer representing the total number of levels in the tree.
         If there is one value, the depth should be 1, if two values it will be 2, if t
         hree values it may be 2 or three, depending, etc.
         """
@@ -300,7 +311,7 @@ class Tree(object):
 
     def balance(self):
         """
-        will return an integer, positive or negative that represents how well balanced
+        Will return an integer, positive or negative that represents how well balanced
         the tree is. Trees which are higher on the _left than the _right should return a
         positive value, trees which are higher on the _right than the _left should return
         a negative value. An ideally-balanced tree should return 0.
