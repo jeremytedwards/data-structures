@@ -179,32 +179,33 @@ def test__balance_tree():
 def test_find():
     tree = Tree(5, 3, 6, 8, 4, 9)
     result = tree.find_node(3)
-    # import pdb; pdb.set_trace()
     assert result.data == 3
 
     tree = Tree(5, 3, 6, 8, 4, 9)
-    result = tree.find_node(7)
-    # import pdb; pdb.set_trace()
-    assert result == None
+    with pytest.raises(ValueError):
+        tree.find_node(7)
 
 
 def test_delete():
     tree = Tree(5, 3, 6, 8, 4, 9, 2, 1, 0)
     # delete a leaf
     tree.delete(9)
-    assert tree.find_node(9) == None
+    with pytest.raises(ValueError):
+        tree.find_node(9)
     assert tree.find_node(8)._right == None
 
     tree = Tree(5, 3, 6, 8, 4, 9, 2, 1, 0)
     # delete node with only left child
     tree.delete(1)
-    assert tree.find_node(1) == None
+    with pytest.raises(ValueError):
+        tree.find_node(1)
     assert tree.find_node(2)._left.data == 0
 
     tree = Tree(5, 3, 6, 8, 4, 9, 2, 1, 0)
     # delete a node with right or both child
     tree.delete(3)
-    assert tree.find_node(3) == None
+    with pytest.raises(ValueError):
+        tree.find_node(3)
     assert tree.find_node(5)._left.data == 4
     assert tree.find_node(4)._left.data == 2
 
@@ -213,8 +214,11 @@ def test_delete():
     with pytest.raises(ValueError):
         tree.delete(7)
 
-    tree = Tree(5, 3, 6, 8, 4, 9, 2, 1, 0)
+    tree = Tree(10, 8, 12, 6, 11, 13)
     # delete root
-    tree.delete(5)
-    assert tree.find_node(5) == None
-    assert tree.root.data == 6
+    tree.delete(10)
+    with pytest.raises(ValueError):
+        tree.find_node(10)
+    assert tree.root.data == 11
+    assert tree.find_node(12)._left.data == None
+

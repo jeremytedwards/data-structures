@@ -15,36 +15,36 @@ class Node(object):
     def in_order(self):
         # Return all the _left items
         if self._left:
-            for item in self._left.in_order():
-                yield item
+            for data in self._left.in_order():
+                yield data
         # Return me
         yield self.data
         # Return all the _right
         if self._right:
-            for item in self._right.in_order():
-                yield item
+            for data in self._right.in_order():
+                yield data
 
     def pre_order(self):
         # Return me
         yield self.data
         # Return all the _left items
         if self._left:
-            for item in self._left.pre_order():
-                yield item
+            for data in self._left.pre_order():
+                yield data
         # Return all the _right
         if self._right:
-            for item in self._right.pre_order():
-                yield item
+            for data in self._right.pre_order():
+                yield data
 
     def post_order(self):
         # Return all the _left items
         if self._left:
-            for item in self._left.post_order():
-                yield item
+            for data in self._left.post_order():
+                yield data
         # Return all the _right
         if self._right:
-            for item in self._right.post_order():
-                yield item
+            for data in self._right.post_order():
+                yield data
         # Return me
         yield self.data
 
@@ -109,7 +109,6 @@ class Node(object):
             self._right._left = self._left
         # self = None
 
-
     def _shift_up_left(self):
         """Shift up left node."""
         if self._parent._left == self:
@@ -118,28 +117,32 @@ class Node(object):
             self._parent._right = self._left
         # self = None
 
+    def _reset_by_value(self, value):
+        # find the lowest value of a tree
+        for item in self._right.in_order():
+            self.data = item
+            break
+        node = self._right._find_node(value)
+        node._parent._left = None
 
-
-
-
-    # def _get_dot(self):
-    #     """recursively prepare a dot graph entry for this node."""
-    #     if self._left is not None:
-    #         yield "\t%s -> %s;" % (self.data, self._left.data)
-    #         for i in self._left._get_dot():
-    #             yield i
-    #     elif self._right is not None:
-    #         r = random.randint(0, 1e9)
-    #         yield "\tnull%s [shape=point];" % r
-    #         yield "\t%s -> null%s;" % (self.data, r)
-    #     if self._right is not None:
-    #         yield "\t%s -> %s;" % (self.data, self._right.data)
-    #         for i in self._right._get_dot():
-    #             yield i
-    #     elif self._left is not None:
-    #         r = random.randint(0, 1e9)
-    #         yield "\tnull%s [shape=point];" % r
-    #         yield "\t%s -> null%s;" % (self.data, r)
+    def _get_dot(self):
+        """recursively prepare a dot graph entry for this node."""
+        if self._left is not None:
+            yield "\t%s -> %s;" % (self.data, self._left.data)
+            for i in self._left._get_dot():
+                yield i
+        elif self._right is not None:
+            r = random.randint(0, 1e9)
+            yield "\tnull%s [shape=point];" % r
+            yield "\t%s -> null%s;" % (self.data, r)
+        if self._right is not None:
+            yield "\t%s -> %s;" % (self.data, self._right.data)
+            for i in self._right._get_dot():
+                yield i
+        elif self._left is not None:
+            r = random.randint(0, 1e9)
+            yield "\tnull%s [shape=point];" % r
+            yield "\t%s -> null%s;" % (self.data, r)
 
 
 class Tree(object):
@@ -148,6 +151,8 @@ class Tree(object):
     def __init__(self, *args):
         """Init Tree."""
         self.root = None
+        # self.right = self.root._right
+        # self.left = self.root._left
         for idx, val in enumerate(args):
             self.insert(val)
 
@@ -177,65 +182,45 @@ class Tree(object):
 
         self.root = temp_tree.root
 
-
-    # def _find_node(self, node, value):
-    #     """ returns a node with the given value."""
-    #     if node is None:
-    #         return Node()
-    #     elif node.data == value:
-    #         return node
-    #     elif node.data > value:
-    #         self._find_node(node._left, value)
-    #     else:
-    #         self._find_node(node._right, value)
-
     def find_node(self, val):
         """Find node."""
-        return self.root._find_node(val)
-
-    # def _shift_up_right(self):
-    #     """Shift up right node."""
-    #     if self._parent._right == self:
-    #         self._parent._right = self._right
-    #     if self._parent._left == self:
-    #         self._parent._left = self._right
-    #     if self._left:
-    #         self._right._left = self._left
-    #     self = None
-
-
-    # def _shift_up_left(self):
-    #     """Shift up left node."""
-    #     if self._parent._left == self:
-    #         self._parent._left = self._left
-    #     if self._parent._right == self:
-    #         self._parent._right = self._left
-    #     self = None
+        to_find = self.root._find_node(val)
+        if to_find is None:
+            raise ValueError
+        else:
+            return to_find
 
     def delete(self, val):
-        to_delete = self.find_node(val)
-        # TODO: delete a nonexistent
-        if to_delete is None:
+        # delete a nonexistent - Raise a ValueError
+        try:
+            to_delete = self.find_node(val)
+        except ValueError:
             raise ValueError
-        # TODO: delete root
-        # repalce with the left most node of right subtree
 
-        if to_delete._left is None and to_delete._right is None:
-            """if is leaf."""
-            if to_delete._parent._left == to_delete:
-                to_delete._parent._left = None
-            else:
-                to_delete._parent._right = None
-            # to_delete == None
-            # to_delete is not part of tree
-        elif to_delete._left is not None and to_delete._right is None:
-            """if has only left."""
-            to_delete._shift_up_left()
+        # If tree is only one node, root, delete root
+        if to_delete == self.root and self.size() == 1:
+            self.root = None
+        elif to_delete == self.root and self.size() > 1:
+            # Reset the root node from most left child of right tree
+            self.root._reset_by_value(val)
+
         else:
-            """if has 2 children or if has only right."""
-            # call _shift_up_right on to delete, not the one will be shifted up
-            to_delete._shift_up_right()
-
+            # replace with the left most node of right subtree
+            if to_delete._left is None and to_delete._right is None:
+                """if is leaf."""
+                if to_delete._parent._left == to_delete:
+                    to_delete._parent._left = None
+                else:
+                    to_delete._parent._right = None
+                # to_delete == None
+                # to_delete is not part of tree
+            elif to_delete._left is not None and to_delete._right is None:
+                """if has only left."""
+                to_delete._shift_up_left()
+            else:
+                """if has 2 children or if has only right."""
+                # call _shift_up_right on to delete, not the one will be shifted up
+                to_delete._shift_up_right()
 
     def insert(self, val):
         """
@@ -350,11 +335,11 @@ class Tree(object):
     def breadth_order(self):
         return self.root.breadth_order()
 
-    # def get_dot(self):
-    #     """return the tree with root 'self' as a dot graph for visualization"""
-    #     return "digraph G{\n%s}" % ("" if self.root.data is None else (
-    #         "\t%s;\n%s\n" % (
-    #             self.root.data,
-    #             "\n".join(self.root._get_dot())
-    #         )
-    #     ))
+    def get_dot(self):
+        """return the tree with root 'self' as a dot graph for visualization"""
+        return "digraph G{\n%s}" % ("" if self.root.data is None else (
+            "\t%s;\n%s\n" % (
+                self.root.data,
+                "\n".join(self.root._get_dot())
+            )
+        ))
