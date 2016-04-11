@@ -1,8 +1,9 @@
 language: python
 python:
-  matrix:
-    - TOXENV=py27
-    - TOXENV=py35
+  - "3.5"
+#  matrix:
+#    - TOXENV=py27
+#    - TOXENV=py35
 # command to install dependencies
 install:
   - "pip install -e .[test]"
