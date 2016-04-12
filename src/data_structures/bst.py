@@ -102,8 +102,8 @@ class Node(object):
                 return None
             return self._right._find_node(value)
 
-    def _shift_up_right(self):
-        """Shift up right node."""
+    def _shift_up_right_del(self):
+        """Shift up right node in a delete."""
         if self._parent._right == self:
             self._parent._right = self._right
         else:
@@ -111,8 +111,8 @@ class Node(object):
         if self._left:
             self._right._left = self._left
 
-    def _shift_up_left(self):
-        """Shift up left node."""
+    def _shift_up_left_del(self):
+        """Shift up left node in a delete."""
         if self._parent._left == self:
             self._parent._left = self._left
         else:
@@ -134,24 +134,55 @@ class Node(object):
         # set that nodes parent to None
         node._parent._left = None
 
-    def _get_dot(self):
-        """recursively prepare a dot graph entry for this node."""
-        if self._left is not None:
-            yield "\t%s -> %s;" % (self.data, self._left.data)
-            for i in self._left._get_dot():
-                yield i
-        elif self._right is not None:
-            r = random.randint(0, 1e9)
-            yield "\tnull%s [shape=point];" % r
-            yield "\t%s -> null%s;" % (self.data, r)
-        if self._right is not None:
-            yield "\t%s -> %s;" % (self.data, self._right.data)
-            for i in self._right._get_dot():
-                yield i
-        elif self._left is not None:
-            r = random.randint(0, 1e9)
-            yield "\tnull%s [shape=point];" % r
-            yield "\t%s -> null%s;" % (self.data, r)
+    def _rotate_up_right(self):
+        """Shift up right node in a delete."""
+        promote = self._right
+        self._right = promote._left
+        if self._parent:
+            self._parent._right = promote
+        promot._left = self
+
+    def _rotate_up_left(self):
+        """Shift up left node in a delete."""
+        promote = self._left
+        self._left = promote._right
+        if self._parent:
+            self._parent._left = promote
+        promote._right = self
+
+
+    def node_balance(self):
+        left_depth = 0
+        right_depth = 0
+        if self._right:
+            right_depth = self._right.depth_count()
+        if self._left:
+            left_depth = self._left.depth_count()
+        depth_diff = right_depth - left_depth
+        if depth_diff <= -2:
+            self._rotate_up_left()
+        if depth_diff >= 2:
+            self._rotate_up_right()
+
+
+    # def _get_dot(self):
+    #     """recursively prepare a dot graph entry for this node."""
+    #     if self._left is not None:
+    #         yield "\t%s -> %s;" % (self.data, self._left.data)
+    #         for i in self._left._get_dot():
+    #             yield i
+    #     elif self._right is not None:
+    #         r = random.randint(0, 1e9)
+    #         yield "\tnull%s [shape=point];" % r
+    #         yield "\t%s -> null%s;" % (self.data, r)
+    #     if self._right is not None:
+    #         yield "\t%s -> %s;" % (self.data, self._right.data)
+    #         for i in self._right._get_dot():
+    #             yield i
+    #     elif self._left is not None:
+    #         r = random.randint(0, 1e9)
+    #         yield "\tnull%s [shape=point];" % r
+    #         yield "\t%s -> null%s;" % (self.data, r)
 
 
 class Tree(object):
@@ -229,10 +260,10 @@ class Tree(object):
                     to_delete._parent._right = None
             elif to_delete._left is not None and to_delete._right is None:
                 """if has only left."""
-                to_delete._shift_up_left()
+                to_delete._shift_up_left_del()
             else:
                 """if has 2 children or if has only right."""
-                to_delete._shift_up_right()
+                to_delete._shift_up_right_del()
 
     def insert(self, val):
         """
@@ -253,6 +284,7 @@ class Tree(object):
                     else:
                         head._left = node
                         node._parent = head
+                        head.node_balance()
                         break
                 elif head.data < val:
                     if head._right:
@@ -260,6 +292,7 @@ class Tree(object):
                     else:
                         head._right = node
                         node._parent = head
+                        head.node_balance()
                         break
 
     def contains(self, val):
@@ -346,11 +379,16 @@ class Tree(object):
     def breadth_order(self):
         return self.root.breadth_order()
 
-    def get_dot(self):
-        """return the tree with root 'self' as a dot graph for visualization"""
-        return "digraph G{\n%s}" % ("" if self.root.data is None else (
-            "\t%s;\n%s\n" % (
-                self.root.data,
-                "\n".join(self.root._get_dot())
-            )
-        ))
+
+
+
+
+
+    # def get_dot(self):
+    #     """return the tree with root 'self' as a dot graph for visualization"""
+    #     return "digraph G{\n%s}" % ("" if self.root.data is None else (
+    #         "\t%s;\n%s\n" % (
+    #             self.root.data,
+    #             "\n".join(self.root._get_dot())
+    #         )
+    #     ))

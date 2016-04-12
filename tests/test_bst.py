@@ -162,18 +162,18 @@ def test__gen_tree_from_ord_list():
     assert result_true == result
 
 
-def test__balance_tree():
-    test_tree = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    tree = Tree(*test_tree)
+# def test__balance_tree():
+#     test_tree = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+#     tree = Tree(*test_tree)
 
-    result = []
-    result_true = [6, 3, 2, 1, 5, 4, 9, 8, 7, 10]
+#     result = []
+#     result_true = [6, 3, 2, 1, 5, 4, 9, 8, 7, 10]
 
-    tree._balance_tree()
+#     tree._balance_tree()
 
-    for item in tree.pre_order():
-        result.append(item)
-    assert result_true == result
+#     for item in tree.pre_order():
+#         result.append(item)
+#     assert result_true == result
 
 
 def test_find():
@@ -228,3 +228,13 @@ def test_delete():
     with pytest.raises(AttributeError):
         tree.find_node(10)
     assert tree.root == None
+
+
+def test_node_balance():
+    tree = Tree(18, 8, 20, 6, 10, 30, 1, 7, 9, 15)
+    tree.insert(13)
+    result = []
+    for each in tree.breadth_order():
+        result.append(each)
+    expect = [10, 8, 18, 6, 9, 15, 20, 1, 7, 13, 30]
+    assert result == expect
