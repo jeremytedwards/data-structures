@@ -150,18 +150,33 @@ class Node(object):
             self._parent._left = promote
         promote._right = self
 
-    def node_balance(self):
+    def _get_balance_diff(self):
         left_depth = 0
         right_depth = 0
+
         if self._right:
             right_depth = self._right.depth_count()
         if self._left:
             left_depth = self._left.depth_count()
+
         depth_diff = right_depth - left_depth
-        if depth_diff <= -2:
-            self._rotate_up_left()
-        if depth_diff >= 2:
+        return depth_diff
+
+    def node_balance(self):
+        if self._get_balance_diff() <= -2:
+            # right tree is heavy
+            if self._right._get_balance_diff() <= -1:
+                self._right._rotate_up_right()
+            if self._right._get_balance_diff() >= 1:
+                self._left._rotate_up_left()
             self._rotate_up_right()
+        elif self._get_balance_diff() >= 2:
+            # left tree is heavy
+            if self._left._get_balance_diff() <= -1:
+                self._right._rotate_up_right()
+            if self._left._get_balance_diff() >= 1:
+                self._left._rotate_up_left()
+            self._rotate_up_left()
 
     def _insert(self, val):
         if val == self.data:
