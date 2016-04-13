@@ -140,7 +140,7 @@ class Node(object):
         self._right = promote._left
         if self._parent:
             self._parent._right = promote
-        promot._left = self
+        promote._left = self
 
     def _rotate_up_left(self):
         """Shift up left node in a delete."""
@@ -149,7 +149,6 @@ class Node(object):
         if self._parent:
             self._parent._left = promote
         promote._right = self
-
 
     def node_balance(self):
         left_depth = 0
@@ -163,6 +162,27 @@ class Node(object):
             self._rotate_up_left()
         if depth_diff >= 2:
             self._rotate_up_right()
+
+    def _insert(self, val):
+        if val == self.data:
+            return
+        elif self._left is None or self._right is None:
+            if val > self.data:
+                new_leaf = Node(val)
+                new_leaf._parent = self
+                self._right = new_leaf
+            elif val < self.data:
+                new_leaf = Node(val)
+                new_leaf._parent = self
+                self._left = new_leaf
+        elif val > self.data:
+            self._right._insert(val)
+            self.node_balance()
+        elif val < self.data:
+            self._left._insert(val)
+            self.node_balance()
+
+
 
 
     # def _get_dot(self):
@@ -190,8 +210,6 @@ class Tree(object):
     def __init__(self, *args):
         """Init Tree."""
         self.root = None
-        # self.right = self.root._right
-        # self.left = self.root._left
         for idx, val in enumerate(args):
             self.insert(val)
 
@@ -274,26 +292,38 @@ class Tree(object):
         if self.root is None:
             self.root = node
         else:
-            head = self.root
-            while head:
-                if head.data == val:
-                    break
-                elif head.data > val:
-                    if head._left:
-                        head = head._left
-                    else:
-                        head._left = node
-                        node._parent = head
-                        head.node_balance()
-                        break
-                elif head.data < val:
-                    if head._right:
-                        head = head._right
-                    else:
-                        head._right = node
-                        node._parent = head
-                        head.node_balance()
-                        break
+            self.root._insert(val)
+
+
+    # def insert_old(self, val):
+    #     """
+    #     Will insert the value val into the BST. If val is already present,
+    #     it will be ignored.
+    #     """
+    #     node = Node(val)
+    #     if self.root is None:
+    #         self.root = node
+    #     else:
+    #         head = self.root
+    #         while head:
+    #             if head.data == val:
+    #                 break
+    #             elif head.data > val:
+    #                 if head._left:
+    #                     head = head._left
+    #                 else:
+    #                     head._left = node
+    #                     node._parent = head
+    #                     head.node_balance()
+    #                     break
+    #             elif head.data < val:
+    #                 if head._right:
+    #                     head = head._right
+    #                 else:
+    #                     head._right = node
+    #                     node._parent = head
+    #                     head.node_balance()
+    #                     break
 
     def contains(self, val):
         """
@@ -335,8 +365,8 @@ class Tree(object):
     def depth(self):
         """
         Will return an integer representing the total number of levels in the tree.
-        If there is one value, the depth should be 1, if two values it will be 2, if t
-        hree values it may be 2 or three, depending, etc.
+        If there is one value, the depth should be 1, if two values it will be 2, if
+        three values it may be 2 or three, depending, etc.
         """
         if self.root is None:
             return 0

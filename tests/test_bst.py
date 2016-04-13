@@ -231,10 +231,10 @@ def test_delete():
 
 
 def test_node_balance():
-    tree = Tree(18, 8, 20, 6, 10, 30, 1, 7, 9, 15)
-    tree.insert(13)
+    nb_tree = Tree(18, 8, 20, 6, 10, 30, 1, 7, 9, 15)
+    nb_tree.insert(13)
     result = []
-    for each in tree.breadth_order():
+    for each in nb_tree.breadth_order():
         result.append(each)
     expect = [10, 8, 18, 6, 9, 15, 20, 1, 7, 13, 30]
     assert result == expect
