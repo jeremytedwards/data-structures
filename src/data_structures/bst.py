@@ -135,20 +135,32 @@ class Node(object):
         node._parent._left = None
 
     def _rotate_up_right(self):
-        """Shift up right node in a delete."""
+        """Shift up right node in an insert."""
         promote = self._right
         self._right = promote._left
         if self._parent:
-            self._parent._right = promote
+            self._parent._left = promote
         promote._left = self
 
     def _rotate_up_left(self):
-        """Shift up left node in a delete."""
+        """Shift up left node in an insert."""
         promote = self._left
-        self._left = promote._right
+        self._right = promote._left
         if self._parent:
             self._parent._left = promote
         promote._right = self
+
+    def node_balance(self):
+        if self._get_balance_diff() <= -2:
+            # right tree is heavy
+            if self._left._left and self._left._left is None:
+                self._left._rotate_up_right()
+            self._rotate_up_left()
+        elif self._get_balance_diff() >= 2:
+            # left tree is heavy
+            if self._right._right and self._right._right is None:
+                self._right._rotate_up_left()
+            self._rotate_up_right()
 
     def _get_balance_diff(self):
         left_depth = 0
@@ -162,21 +174,32 @@ class Node(object):
         depth_diff = right_depth - left_depth
         return depth_diff
 
-    def node_balance(self):
-        if self._get_balance_diff() <= -2:
-            # right tree is heavy
-            if self._right._get_balance_diff() <= -1:
-                self._right._rotate_up_right()
-            if self._right._get_balance_diff() >= 1:
-                self._left._rotate_up_left()
-            self._rotate_up_right()
-        elif self._get_balance_diff() >= 2:
-            # left tree is heavy
-            if self._left._get_balance_diff() <= -1:
-                self._right._rotate_up_right()
-            if self._left._get_balance_diff() >= 1:
-                self._left._rotate_up_left()
-            self._rotate_up_left()
+    # def node_balance(self):
+    #     if self._right:
+    #         # print(self.data)
+    #         right_depth = self._right.depth_count()
+    #     else:
+    #         right_depth = 0
+    #     if self._left:
+    #         left_depth = self._left.depth_count()
+    #     else:
+    #         left_depth = 0
+    #     depth_diff = left_depth - right_depth
+    #     # print(depth_diff)
+    #     # if self._parent:
+    #     #     print(self._parent.data)
+    #     if -2 < depth_diff < 2:
+    #         self = self._parent
+    #         # print(self.data)
+    #         self.node_balance()
+    #     elif depth_diff <= -2:
+    #         self._left._rotate_up_right()
+    #         self._rotate_up_right()
+    #         print('here')
+    #     elif depth_diff >= 2:
+    #         self._right._rotate_up_left()
+    #         self._rotate_up_left()
+    #         print('here?')
 
     def _insert(self, val):
         if val == self.data:
