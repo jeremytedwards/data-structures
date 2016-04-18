@@ -4,15 +4,20 @@
 class HashTable(object):
     def __init__(self, hash_size=1024):
         self._size = hash_size
-        self.storage = [[] for i in range(hash_size)]
+        self._storage = [[] for i in range(hash_size)]
 
     def get(self, key):
         """returns the value stored with the given key"""
         pass
 
+
     def set(self, key, val):
         """stores the given val using the given key"""
         pass
+        # bucket = self._storage[self._hash(key)]
+        # for item in bucket:
+        #     if item.() == val:
+        #         break
 
     def _hash(self, key):
         """
