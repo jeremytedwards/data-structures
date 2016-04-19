@@ -9,11 +9,10 @@ class HashTable(object):
     def get(self, key):
         """returns the value stored with the given key"""
         bucket = self._storage[self._hash(key)]
-        for item in bucket:
-            if item == val:
+        for t_key, t_value in bucket:
+            if t_key == key:
                 # if the item is already in the bucket do nothing
-                return item
-
+                return t_value
 
     def set(self, key, val):
         """stores the given val using the given key"""
