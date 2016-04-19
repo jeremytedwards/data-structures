@@ -1,6 +1,7 @@
 # coding=utf-8
 import pytest
 
+
 TEST_SIZE = [
     # ["", 1024],
     [0, 0],
@@ -18,16 +19,27 @@ def test_hashtable_init(size, result):
 
 def test_hashtable_init_empty():
     from data_structures.hash_table import HashTable
-    test_hash_table = HashTable()
-    assert len(test_hash_table._storage) == 1024
-
-TEST_KEYS = []
+    test_hash_table = HashTable(hash_size=0)
+    assert len(test_hash_table._storage) == 0
 
 
-@pytest.mark.parametrize("key", TEST_KEYS)
-def get(key):
+TEST_KEYS = [
+    [321, "the"],
+    [799, "abc"],
+    [48, "word"],
+]
+
+
+@pytest.mark.parametrize("key, value", TEST_KEYS)
+def test_get(key, value):
     """tests the value returned of given key"""
-    pass
+    from data_structures.hash_table import HashTable
+    test_ht = HashTable()
+    test_ht.set(321, "the")
+    print(test_ht._storage[0])
+    test_ht.set(799, "abc")
+    test_ht.set(48, "word")
+    assert test_ht.get(key) == value
 
 TEST_KEY_VALUES = []
 

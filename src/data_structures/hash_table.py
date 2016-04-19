@@ -9,22 +9,22 @@ class HashTable(object):
     def get(self, key):
         """returns the value stored with the given key"""
         bucket = self._storage[self._hash(key)]
-        for t_key, t_value in bucket:
-            if t_key == key:
+        for item in bucket:
+            if item[0] == key:
                 # if the item is already in the bucket do nothing
-                return t_value
+                return item[1]
 
     def set(self, key, val):
         """stores the given val using the given key"""
         bucket = self._storage[self._hash(key)]
-        for index, (t_key, t_value) in enumerate(bucket):
+        for index, (t_key, t_val) in enumerate(bucket):
             if t_key == key:
                 # if the key is already in the bucket update
                 self._storage[self._hash(key)][index] = (key, val)
-                break
+                # break
             else:
                 # if the item is not in the bucket insert as tuple
-                self._storage[self._hash(key)].extend((key, val))
+                self._storage[self._hash(key)].append((key, val))
 
     def _hash(self, key):
         """
