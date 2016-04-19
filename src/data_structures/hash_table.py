@@ -17,14 +17,14 @@ class HashTable(object):
     def set(self, key, val):
         """stores the given val using the given key"""
         bucket = self._storage[self._hash(key)]
-        for index, (t_key, t_val) in enumerate(bucket):
-            if t_key == key:
-                # if the key is already in the bucket update
-                self._storage[self._hash(key)][index] = (key, val)
-                # break
-            else:
+        # for index, (t_key, t_val) in enumerate(bucket):
+        #     if t_key == key:
+        #         # if the key is already in the bucket update
+        #         self._storage[self._hash(key)][index] = (key, val)
+        #         break
+        #     else:
                 # if the item is not in the bucket insert as tuple
-                self._storage[self._hash(key)].append((key, val))
+        self._storage[self._hash(key)].append((key, val))
 
     def _hash(self, key):
         """

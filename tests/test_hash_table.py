@@ -24,9 +24,9 @@ def test_hashtable_init_empty():
 
 
 TEST_KEYS = [
-    [321, "the"],
-    [799, "abc"],
-    [48, "word"],
+    ["key", "the"],
+    ["lock", "abc"],
+    ["bad", "word"],
 ]
 
 
@@ -34,11 +34,11 @@ TEST_KEYS = [
 def test_get(key, value):
     """tests the value returned of given key"""
     from data_structures.hash_table import HashTable
-    test_ht = HashTable()
-    test_ht.set(321, "the")
+    test_ht = HashTable(hash_size=1)
+    test_ht.set("key", "the")
     print(test_ht._storage[0])
-    test_ht.set(799, "abc")
-    test_ht.set(48, "word")
+    test_ht.set("lock", "abc")
+    test_ht.set("bad", "word")
     assert test_ht.get(key) == value
 
 TEST_KEY_VALUES = []
