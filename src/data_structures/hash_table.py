@@ -28,7 +28,6 @@ class HashTable(object):
         if key_found is False:
             self._storage[self._hash(key)].append((key, val))
 
-
     def _hash(self, key):
         """
         hashes the key provided(note that this is an internal api)

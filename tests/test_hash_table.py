@@ -42,25 +42,25 @@ def test_get(key, value):
     assert test_ht.get(key) == value
 
 
-# TEST_KEY_VALUES = [
-#     ["key", "the"],
-#     ["lock", "abc"],
-#     ["bad", "word"],
-# ]
+TEST_KEY_VALUES = [
+    ["key", "the"],
+    ["lock", "abc"],
+    ["bad", "word"],
+]
 
 
-# @pytest.mark.parametrize("key, value", TEST_KEY_VALUES)
-def test_set():
+@pytest.mark.parametrize("key, value", TEST_KEY_VALUES)
+def test_set(key, value):
     """tests insert of a given key, value"""
     from data_structures.hash_table import HashTable
-    test_ht = HashTable(hash_size=5)
+    test_ht = HashTable(5)
     # Test simple insert
-    test_ht.set("key", "the")
-    assert test_ht.get("key") == "the"
+    test_ht.set(key, value)
+    assert test_ht.get(key) == value
 
     # Test overwrite when insert same key
-    test_ht.set("key", "overwrite")
-    assert test_ht.get('key') == "overwrite"
+    test_ht.set(key, "overwrite")
+    assert test_ht.get(key) == "overwrite"
 
 
 TEST_HASHES = [
