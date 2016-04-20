@@ -2,6 +2,26 @@
 import pytest
 
 
+@pytest.fixture(scope='session')
+def words():
+    d = {}
+    with open('test_data/words', 'r') as f:
+        for word in f:
+            word = word.strip()
+            if word not in d:
+                d[word] = len(d)
+    return d
+
+
+def test_words(words):
+    from data_structures.hash_table import HashTable
+    test_hash_table = HashTable()
+    for k, v in words.items():
+        test_hash_table.set(k, v)
+    for k, v in words.items():
+        assert test_hash_table.get(k) == v
+
+
 TEST_SIZE = [
     # ["", 1024],
     [0, 0],
