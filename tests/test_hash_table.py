@@ -2,6 +2,26 @@
 import pytest
 
 
+@pytest.fixture(scope='session')
+def words():
+    d = {}
+    with open('test_data/words', 'r') as f:
+        for word in f:
+            word = word.strip()
+            if word not in d:
+                d[word] = len(d)
+    return d
+
+
+def test_words(words):
+    from data_structures.hash_table import HashTable
+    test_hash_table = HashTable()
+    for k, v in words.items():
+        test_hash_table.set(k, v)
+    for k, v in words.items():
+        assert test_hash_table.get(k) == v
+
+
 TEST_SIZE = [
     # ["", 1024],
     [0, 0],
@@ -34,7 +54,7 @@ TEST_KEYS = [
 def test_get(key, value):
     """tests the value returned of given key"""
     from data_structures.hash_table import HashTable
-    test_ht = HashTable(hash_size=5)
+    test_ht = HashTable(5)
     test_ht.set("key", "the")
     # print(test_ht._storage[0])
     test_ht.set("lock", "abc")
@@ -42,25 +62,33 @@ def test_get(key, value):
     assert test_ht.get(key) == value
 
 
-# TEST_KEY_VALUES = [
-#     ["key", "the"],
-#     ["lock", "abc"],
-#     ["bad", "word"],
-# ]
+TEST_KEY_VALUES = [
+    ["key", "the"],
+    ["lock", "abc"],
+    ["bad", "word"],
+]
 
 
-# @pytest.mark.parametrize("key, value", TEST_KEY_VALUES)
-def test_set():
+@pytest.mark.parametrize("key, value", TEST_KEY_VALUES)
+def test_set(key, value):
     """tests insert of a given key, value"""
     from data_structures.hash_table import HashTable
-    test_ht = HashTable(hash_size=5)
+    test_ht = HashTable(5)
     # Test simple insert
-    test_ht.set("key", "the")
-    assert test_ht.get("key") == "the"
+    test_ht.set(key, value)
+    assert test_ht.get(key) == value
 
     # Test overwrite when insert same key
-    test_ht.set("key", "overwrite")
-    assert test_ht.get('key') == "overwrite"
+    test_ht.set(key, "overwrite")
+    assert test_ht.get(key) == "overwrite"
+
+
+def test_set_typeerror():
+    from data_structures.hash_table import HashTable
+    test_ht = HashTable(5)
+    # Test non-string insert
+    with pytest.raises(TypeError):
+        test_ht.set(123, "value")
 
 
 TEST_HASHES = [

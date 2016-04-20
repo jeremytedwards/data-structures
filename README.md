@@ -2,9 +2,20 @@
 
 ## This project contains sample code for implementing the following structures:
 
+### Hash Table
+
+This data structure, a hash table, is used to implement an associative 
+array, a structure that can map keys to values. A hash table uses a hash 
+function to compute an index into an array of buckets or slots, from 
+which the desired value can be found.
+
+ht.get(key) - Returns the value stored with the given key
+ht.set(key, val) - Stores the given val using the given key
+
+
 ### Binary Search Tree (BST)
 
-This data structure a binary tree is a tree data structure in which each 
+This data structure, a binary tree, is a tree data structure in which each 
 node has at most two children, which are referred to as the left child 
 and the right child.
 

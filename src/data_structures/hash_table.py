@@ -16,7 +16,9 @@ class HashTable(object):
 
     def set(self, key, val):
         """stores the given val using the given key"""
-        # import pdb;pdb.set_trace()
+        if not isinstance(key, (str)):
+            raise TypeError
+
         bucket = self._storage[self._hash(key)]
         key_found = False
         for index, (t_key, t_val) in enumerate(bucket):
@@ -27,7 +29,6 @@ class HashTable(object):
                 break
         if key_found is False:
             self._storage[self._hash(key)].append((key, val))
-
 
     def _hash(self, key):
         """
