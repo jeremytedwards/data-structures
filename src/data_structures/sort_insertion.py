@@ -11,29 +11,50 @@ def sort_insertion(origin_list):
         sorted_list = [origin_list.pop(0)]
         while len(origin_list) > 0:
             item = origin_list.pop(0)
-            print(item)
-            # import pdb;pdb.set_trace()
             for index, v in enumerate(sorted_list):
                 if v >= item:
                     sorted_list.insert(index, item)
                     break
-                else:
+                elif sorted_list[-1] < item:
                     sorted_list.append(item)
                     break
         return sorted_list
 
 
 def main():
-    random_list = [random.randint(25, 100) for i in range(15)]
-    print(random_list)
+    # Test Random List
+    random_list = [random.randint(1, 10000) for i in range(10000)]
+    print("\nRandom Set:\n", random_list)
+
     result = sort_insertion(random_list)
-    print("Insertion sort on random list:\n", result)
-    # ordered_list = []
-    # sort_insertion(ordered_list)
-    # print
-    # reversed_list = []
-    # sort_insertion(reversed_list)
-    # print
+    print("Random Set Result:\n", result)
+    print('\nSort time: {}\n'.format(
+        timeit.timeit("sort_insertion", setup="from __main__ import sort_insertion",
+                      number=500))
+    )
+
+    # Test Ordered List
+    ordered_list = [i + 1 for i in range(random.randint(1, 10000))]
+    print("\nOrdered Set:\n", ordered_list)
+
+    result = sort_insertion(ordered_list)
+    print("Ordered Set Result:\n", result)
+    print('\nSort time: {}\n'.format(
+        timeit.timeit("sort_insertion", setup="from __main__ import sort_insertion",
+                      number=500))
+    )
+
+
+    # Test Reversed List
+    reversed_list = [i for i in range(random.randint(1, 10000))][::-1]
+    print("\nReversed Set:\n", reversed_list)
+
+    result = sort_insertion(reversed_list)
+    print("Reversed Set Result:\n", result)
+    print('\nSort time: {}\n'.format(
+        timeit.timeit("sort_insertion", setup="from __main__ import sort_insertion",
+                      number=500))
+    )
 
 
 if __name__ == '__main__':
