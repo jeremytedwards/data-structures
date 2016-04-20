@@ -1,5 +1,5 @@
 # coding=utf-8
-import random
+from collections import deque
 
 
 class Node(object):
@@ -134,51 +134,101 @@ class Node(object):
         # set that nodes parent to None
         node._parent._left = None
 
-    def _right_rotate(self):
+    def _rotate_right(self):
         """Shift up right node in an insert."""
-        # promote = self._left
-        # self._left = promote._right
-        # # if self._parent:
-        # #     self._parent._left = promote
-        # promote._right = self._left
-        # self._parent = promote
-        # self._right = self._right
-        # pivot = self._left
-        # self._left = pivot._right
-        # pivot._right = self
-        # return pivot
-        print(self.data, "_right rotate")
+        promote = self._left
+        if promote._right:
+            self._left = promote._right
+        if self._parent:
+            self._parent._left = promote
+        promote._right = self._left
+        self._parent = promote
 
-    def _left_rotate(self):
+    def rotate_right(self):
+        """set self as the RIGHT subtree of left subtree"""
+        promote = self._left
+        new_left_sub = promote._right
+        old_root = self.data
+
+        self.data = promote
+        old_root._left = new_left_sub
+        promote._right = old_root
+
+    def _rotate_left(self):
         """Shift up left node in an insert."""
-        # promote = self._right
-        # self._right = promote._left
-        # # if self._parent:
-        # #     self._parent._left = promote
-        # promote._left = self._right
-        # self._parent = promote
-        # self._left = self._left
-        # pivot = self._right
-        # self._right = pivot._left
-        # pivot._left = self
-        # return pivot
-        print(self.data, "_left rotate")
+        promote = self._right
+        if promote._left:
+            self._right = promote._left
+        if self._parent:
+            self._parent._left = promote
+        promote._left = self._right
+        self._parent = promote
 
+    def rotate_left(self):
+        """set self as the LEFT subtree of right subtree"""
+        new_root = self._right
+        new_left_sub = new_root._left
+        old_root = self.data
 
+        self.data = new_root
+        old_root._right = new_left_sub
+        new_root._left = old_root
+
+    # def rrotate(self):
+    #     p = self.left
+    #     self.left = p.right
+    #     p.right = self
+    #     self = p
+    #     self.right.calheight()
+    #     self.calheight()
+    #     return self
+    #
+    # def lrotate(self):
+    #     p = self.right
+    #     self.right = p.left
+    #     p.left = self
+    #     self = p
+    #     self.left.calheight()
+    #     self.calheight()
+    #     return self
+    #
+    # def dlrotate(self):
+    #     self.right = self.right.rrotate()
+    #     self = self.lrotate()
+    #     return self
+    #
+    # def drrotate(self):
+    #     self.left = self.left.lrotate()
+    #     self = self.rrotate()
+    #     return self
+    #
     def node_balance(self):
-        if self._get_balance_diff() <= -2:
-            if self._right._get_balance_diff() <= -1:
-                self._right._left_rotate()
-            if self._right._get_balance_diff() >= 1:
-                self._right._right_rotate()
-            self._left_rotate()
+        print("(", self._left.get_balance_diff(), ") ", self.data, " (", self._right.get_balance_diff(), ")")
+        if self.get_balance_diff() <= -2:
+            if self._right.get_balance_diff() <= -1:
+                print("rotate LEFT on: ", self._right.data)
 
-        elif self._get_balance_diff() >= 2:
-            if self._left._get_balance_diff() >= 1:
-                self._left._right_rotate()
-            if self._left._get_balance_diff() <= -1:
-                self._left._left_rotate()
-            self._right_rotate()
+                self._right._rotate_left()
+            if self._right.get_balance_diff() >= 1:
+                print("rotate RIGHT on: ", self._right.data)
+
+                self._right._rotate_right()
+
+            print("rotate LEFT on: ", self.data)
+            self._rotate_left()
+
+        elif self.get_balance_diff() >= 2:
+            if self._left.get_balance_diff() >= 1:
+                print("rotate RIGHT on: ", self._left.data)
+
+                self._left._rotate_right()
+            if self._left.get_balance_diff() <= -1:
+                print("rotate LEFT on: ", self._left.data)
+
+                self._left._rotate_left()
+
+            print("rotate RIGHT on: ", self.data)
+            self._rotate_right()
         # if self._get_balance_diff() < -1:  # https://goo.gl/q0VorO
         #     # right tree is deeper
         #     # perform left rotation
@@ -198,7 +248,14 @@ class Node(object):
         #     # tree is balanced
         #     return self
 
-    def _get_balance_diff(self):
+    def get_balance_diff(self):
+        """
+        will return an integer, positive or negative that represents how well balanced.
+        Where left > right, returns (+) value.
+        Where left < right, returns (-) value.
+        depth = left - right
+        An ideally-balanced tree should return 0.
+        """
         left_depth = 0
         right_depth = 0
 
@@ -207,13 +264,16 @@ class Node(object):
         if self._left:
             left_depth = self._left.depth_count()
 
-        depth_diff = right_depth - left_depth
+        depth_diff = left_depth - right_depth
+        # print("Depth Diff: ", self.data, " : (", right_depth, "-", left_depth, ") =", depth_diff)
         return depth_diff
 
     def _insert(self, val):
         if val == self.data:
+            print("Equal. No balance: ", self.data)
             return
         elif self._left is None or self._right is None:
+            print("\nNone insert: ", val)
             if val > self.data:
                 new_leaf = Node(val)
                 new_leaf._parent = self
@@ -224,12 +284,12 @@ class Node(object):
                 self._left = new_leaf
         elif val > self.data:
             self._right._insert(val)
+            print(self._right.data, "> insert: ")
             self.node_balance()
         elif val < self.data:
             self._left._insert(val)
+            print(self._left.data, "< insert: ")
             self.node_balance()
-
-
 
 
     # def _get_dot(self):
@@ -338,39 +398,9 @@ class Tree(object):
         node = Node(val)
         if self.root is None:
             self.root = node
+            print("\nInsert on Empty: ", node.data)
         else:
             self.root._insert(val)
-
-
-    # def insert_old(self, val):
-    #     """
-    #     Will insert the value val into the BST. If val is already present,
-    #     it will be ignored.
-    #     """
-    #     node = Node(val)
-    #     if self.root is None:
-    #         self.root = node
-    #     else:
-    #         head = self.root
-    #         while head:
-    #             if head.data == val:
-    #                 break
-    #             elif head.data > val:
-    #                 if head._left:
-    #                     head = head._left
-    #                 else:
-    #                     head._left = node
-    #                     node._parent = head
-    #                     head.node_balance()
-    #                     break
-    #             elif head.data < val:
-    #                 if head._right:
-    #                     head = head._right
-    #                 else:
-    #                     head._right = node
-    #                     node._parent = head
-    #                     head.node_balance()
-    #                     break
 
     def contains(self, val):
         """
