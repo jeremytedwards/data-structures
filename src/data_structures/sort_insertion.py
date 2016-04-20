@@ -11,29 +11,27 @@ def sort_insertion(origin_list):
         sorted_list = [origin_list.pop(0)]
         while len(origin_list) > 0:
             item = origin_list.pop(0)
-            print(item)
-            # import pdb;pdb.set_trace()
-            for index, v in enumerate(sorted_list):
-                if v >= item:
-                    sorted_list.insert(index, item)
+            for i in range(len(sorted_list)):
+                if sorted_list[i] >= item:
+                    sorted_list.insert(i, item)
                     break
-                else:
+                elif sorted_list[-1] < item:
                     sorted_list.append(item)
                     break
         return sorted_list
 
 
 def main():
-    random_list = [random.randint(25, 100) for i in range(15)]
-    print(random_list)
-    result = sort_insertion(random_list)
-    print("Insertion sort on random list:\n", result)
-    # ordered_list = []
-    # sort_insertion(ordered_list)
-    # print
-    # reversed_list = []
-    # sort_insertion(reversed_list)
-    # print
+    random_list = [random.randint(25, 100) for i in range(10)]
+    result_1 = sort_insertion(random_list)
+    time = timeit.timeit('random_list', sort_insertion(random_list), 1000000)
+    print("Insertion sort on random list:", result_1, time)
+    # ordered_list = [for i in rang(10)]
+    # result_2 = sort_insertion(ordered_list)
+    # print("Insertion sort on ordered list:", result_2)
+    # reversed_list = [for i in range(10)]
+    # result_3 = sort_insertion(reversed_list)
+    # print("Insertion sort on reversed list:", result_3)
 
 
 if __name__ == '__main__':
