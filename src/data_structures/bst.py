@@ -292,8 +292,6 @@ class Node(object):
             self.node_balance()
 
 
-
-
     # def _get_dot(self):
     #     """recursively prepare a dot graph entry for this node."""
     #     if self._left is not None:

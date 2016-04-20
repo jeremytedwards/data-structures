@@ -34,7 +34,7 @@ TEST_KEYS = [
 def test_get(key, value):
     """tests the value returned of given key"""
     from data_structures.hash_table import HashTable
-    test_ht = HashTable(hash_size=5)
+    test_ht = HashTable(5)
     test_ht.set("key", "the")
     # print(test_ht._storage[0])
     test_ht.set("lock", "abc")

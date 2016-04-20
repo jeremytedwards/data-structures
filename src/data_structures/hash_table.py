@@ -16,9 +16,7 @@ class HashTable(object):
 
     def set(self, key, val):
         """stores the given val using the given key"""
-        try:
-            isinstance(key, (basestring, str))
-        except:
+        if not isinstance(key, (str)):
             raise TypeError
 
         bucket = self._storage[self._hash(key)]
