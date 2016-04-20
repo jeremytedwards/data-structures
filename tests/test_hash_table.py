@@ -63,6 +63,14 @@ def test_set(key, value):
     assert test_ht.get(key) == "overwrite"
 
 
+def test_set_typeerror():
+    from data_structures.hash_table import HashTable
+    test_ht = HashTable(5)
+    # Test non-string insert
+    with pytest.raises(TypeError):
+        test_ht.set(123, "value")
+
+
 TEST_HASHES = [
     ["the", 321],
     ["abcdefghijklmnopqrstuvwxyz", 799],
