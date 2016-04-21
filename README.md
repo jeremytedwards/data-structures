@@ -2,6 +2,16 @@
 
 ## This project contains sample code for implementing the following structures:
 
+### Insertion Sort: Testing
+
+By running the following code in your console you'll see some TimeIt results
+for running an Insertion Sort on a random, ordered, and reversed list of
+integers from 1 to 10,000.
+
+
+```$ python sort_insertion.py```
+
+
 ### Hash Table
 
 This data structure, a hash table, is used to implement an associative 
