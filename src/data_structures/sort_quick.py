@@ -1,4 +1,5 @@
 import random
+import timeit
 
 
 def pivot(the_list):
@@ -48,7 +49,12 @@ def quicksort(the_list):
     return result
 
 
-test_list = [random.randint(1, 100) for i in range(15)]
-print(test_list)
-result = quicksort(test_list)
-print(result)
+def main():
+    test_list = [random.randint(1, 10000) for i in range(1000)]
+    print(test_list)
+    result = quicksort(test_list)
+    print(result, timeit.timeit('quicksort', setup="from __main__ import quicksort", number=10000))
+
+
+if __name__ == '__main__':
+    main()
