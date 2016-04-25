@@ -30,8 +30,7 @@ def main():
     print("Random Set Result:\n", result)
     print('\nSort time: {}\n'.format(
         timeit.timeit("sort_insertion", setup="from __main__ import sort_insertion",
-                      number=500))
-    )
+                      number=500)))
 
     # Test Ordered List
     ordered_list = [i + 1 for i in range(random.randint(1, 10000))]
@@ -41,9 +40,7 @@ def main():
     print("Ordered Set Result:\n", result)
     print('\nSort time: {}\n'.format(
         timeit.timeit("sort_insertion", setup="from __main__ import sort_insertion",
-                      number=500))
-    )
-
+                      number=500)))
 
     # Test Reversed List
     reversed_list = [i for i in range(random.randint(1, 10000))][::-1]
@@ -53,9 +50,7 @@ def main():
     print("Reversed Set Result:\n", result)
     print('\nSort time: {}\n'.format(
         timeit.timeit("sort_insertion", setup="from __main__ import sort_insertion",
-                      number=500))
-    )
->>>>>>> 7f2e1d3d698ce253d9c6a7835d3bf6188b32b241
+                      number=500)))
 
 
 if __name__ == '__main__':

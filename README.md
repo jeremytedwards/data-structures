@@ -2,6 +2,30 @@
 
 ## This project contains sample code for implementing the following structures:
 
+### Radix Sort: Testing
+
+...
+
+
+```$ python sort_radix.py```
+
+
+### Quick Sort: Testing
+
+...
+
+
+```$ python sort_quick.py```
+
+
+### Merge Sort: Testing
+
+...
+
+
+```$ python sort_merge.py```
+
+
 ### Insertion Sort: Testing
 
 By running the following code in your console you'll see some TimeIt results
