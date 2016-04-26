@@ -12,7 +12,33 @@
 
 ### Quick Sort: Testing
 
-...
+Quicksort is a divide and conquer algorithm. Quicksort first divides a large array 
+into two smaller sub-arrays: the low elements and the high elements. Quicksort can 
+then recursively sort the sub-arrays.
+
+The steps are:
+
+1) Pick an element, called a pivot, from the array.
+
+2) Partitioning: reorder the array so that all elements with values less than 
+the pivot come before the pivot, while all elements with values greater than 
+the pivot come after it (equal values can go either way). 
+
+After this partitioning, the pivot is in its final position. This is called 
+the partition operation.
+
+3) Recursively apply the above steps to the sub-array of elements with smaller 
+values and separately to the sub-array of elements with greater values.
+
+The base case of the recursion is arrays of size zero or one, which never need to be sorted.
+
+The pivot selection and partitioning steps can be done in several different ways; the choice of specific implementation schemes greatly affects the algorithm's performance.
+
+By running the following code in your console you'll see some TimeIt results
+for running an Quick Sort on a random, ordered, and reversed list of
+integers from 1 to 1,000. 
+
+(Beware for larger sets the recursion can exceed memory)
 
 
 ```$ python sort_quick.py```
@@ -20,13 +46,27 @@
 
 ### Merge Sort: Testing
 
-...
+Merge sort is an efficient, general-purpose, comparison-based sorting algorithm. 
+Most implementations produce a stable sort, which means that the implementation 
+preserves the input order of equal elements in the sorted output. Merge sort 
+is a divide and conquer algorithm that was invented by John von Neumann in 1945.
+
+By running the following code in your console you'll see some TimeIt results
+for running an Merge Sort on a random, ordered, and reversed list of
+integers from 1 to 10,000.
 
 
 ```$ python sort_merge.py```
 
 
 ### Insertion Sort: Testing
+
+Insertion sort iterates, consuming one input element each repetition, and 
+growing a sorted output list. Each iteration, insertion sort removes one 
+element from the input data, finds the location it belongs within the sorted 
+list, and inserts it there. It repeats until no input elements remain.
+
+Sorting is typically done in-place, by iterating up the array, growing the sorted list behind it. At each array-position, it checks the value there against the largest value in the sorted list (which happens to be next to it, in the previous array-position checked). If larger, it leaves the element in place and moves to the next. If smaller, it finds the correct position within the sorted list, shifts all the larger values up to make a space, and inserts into that correct position.
 
 By running the following code in your console you'll see some TimeIt results
 for running an Insertion Sort on a random, ordered, and reversed list of

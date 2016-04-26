@@ -1,3 +1,4 @@
+# coding=utf-8
 import random
 import timeit
 
@@ -13,11 +14,14 @@ def split(the_list):
     if len(the_list) > 1:
         slipt_point = pivot(the_list)
         left_list = the_list[:slipt_point]
-        print("left", left_list)
+
+        # print("left", left_list)
         right_list = the_list[slipt_point + 1:]
-        print("right", right_list)
+
+        # print("right", right_list)
         the_list = split(left_list) + [the_list[slipt_point]] + split(right_list)
-        print("the_list", the_list)
+
+        # print("the_list", the_list)
     return the_list
 
 
@@ -59,6 +63,32 @@ def main():
     # Test Random List
     random_list = [random.randint(1, 1000) for i in range(10000)]
     print("\nRandom Set:\n", random_list)
+
+    result = quicksort(random_list)
+    print("Random Set Result:\n", result)
+    print('\nQuick Sort: Sort time: {}'.format(
+        timeit.timeit("quicksort", setup="from __main__ import quicksort",
+                      number=500)))
+
+    # Test Ordered List
+    ordered_list = [i + 1 for i in range(random.randint(1, 1000))]
+    print("\nOrdered Set:\n", ordered_list)
+
+    result = quicksort(ordered_list)
+    print("Ordered Set Result:\n", result)
+    print('\nQuick Sort: Sort time: {}'.format(
+        timeit.timeit("quicksort", setup="from __main__ import quicksort",
+                      number=500)))
+
+    # Test Reversed List
+    reversed_list = [i for i in range(random.randint(1, 1000))][::-1]
+    print("\nReversed Set:\n", reversed_list)
+
+    result = quicksort(reversed_list)
+    print("Reversed Set Result:\n", result)
+    print('\nQuick Sort: Sort time: {}'.format(
+        timeit.timeit("quicksort", setup="from __main__ import quicksort",
+                      number=500)))
 
 if __name__ == '__main__':
     main()
