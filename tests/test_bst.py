@@ -55,7 +55,6 @@ def test_insert():
 #     tree = Tree(2, 3, 4, 5, 8)
 #     assert tree.size() == 5
 
-
 def test_depth():
     """Test depth."""
     # Test depth of 0
@@ -142,6 +141,7 @@ def test_breadth_order():
     for each in tree.breadth_order():
         result.append(each)
     assert result == tree_val
+
     # tree_val_unordered = [5, 7, 3, 8, 6, 4, 1, 9, 2]
     # tree_2 = Tree(*tree_val_unordered)
     # result_2 = []
