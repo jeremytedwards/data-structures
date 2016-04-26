@@ -1,3 +1,4 @@
+# coding=utf-8
 import random
 import timeit
 
@@ -34,6 +35,7 @@ def split_merge(origin_list):
             j = j + 1
             k = k + 1
     return origin_list
+
 
 def main():
     test_list = [random.randint(1, 100) for i in range(11)]
