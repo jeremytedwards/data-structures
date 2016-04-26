@@ -32,6 +32,7 @@ class HashTable(object):
 
     def _hash(self, key):
         """
+        ::Additive Hash::
         hashes the key provided(note that this is an internal api)
         this method prefers a string or integer.
         """
