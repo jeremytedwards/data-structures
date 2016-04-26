@@ -2,6 +2,7 @@
 import random
 import timeit
 
+
 def split_merge(origin_list):
     if len(origin_list) > 1:
         index = len(origin_list) // 2
