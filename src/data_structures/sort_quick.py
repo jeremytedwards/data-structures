@@ -3,7 +3,6 @@ import random
 import timeit
 
 
-
 def quicksort(the_list):
     """Split a list and sort."""
     result = split(the_list)
