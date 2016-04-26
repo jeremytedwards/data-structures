@@ -21,7 +21,8 @@ def test_split_merge(items, result):
     sorted_list = split_merge(items)
     assert sorted_list == result
 
+
 @pytest.mark.parametrize('items, result', TESTING_LISTS)
 def test_sort_merge(items, result):
-    sorted_list = split_merge(items)
+    sorted_list = sort_merge(items)
     assert sorted_list == result

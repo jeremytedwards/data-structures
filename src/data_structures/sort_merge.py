@@ -41,7 +41,40 @@ def split_merge(origin_list):
 
 
 def sort_merge(origin_list):
-    pass
+    """
+    Takes a list and recursively sorts the left and right, merging on the way
+    back up the recursion.
+    :param origin_list:
+    :return: result of ordered_lists(left, right)
+    """
+    # if: size is one or less return the list
+    if len(origin_list) <=1:
+        return origin_list
+
+    # else: recursively find the left and right of list to sort from
+    midpoint = len(origin_list) // 2
+    left = sort_merge(origin_list[:midpoint])
+    right = sort_merge(origin_list[midpoint:])
+
+    return order_lists(left, right)
+
+
+def order_lists(left, right):
+    """
+    Takes two lists and returns the merged set
+    :param left:
+    :param right:
+    :return: merged set of left and right list
+    """
+    if not left:
+        return right
+    if not right:
+        return left
+
+    if left[0] < right[0]:
+        return [left[0]] + order_lists(left[1:], right)
+
+    return [right[0]] + order_lists(left, right[1:])
 
 
 def main():
@@ -56,8 +89,11 @@ def main():
 
     result = split_merge(random_list)
     print("Random Set Result:\n", result)
-    print('\nSort time: {}\n'.format(
+    print('\nSplit_merge: Sort time: {}'.format(
         timeit.timeit("split_merge", setup="from __main__ import split_merge",
+                      number=500)))
+    print('Sort_merge: Sort time: {}\n'.format(
+        timeit.timeit("sort_merge", setup="from __main__ import sort_merge",
                       number=500)))
 
     # Test Ordered List
@@ -66,8 +102,11 @@ def main():
 
     result = split_merge(ordered_list)
     print("Ordered Set Result:\n", result)
-    print('\nSort time: {}\n'.format(
+    print('\nSplit_merge: Sort time: {}'.format(
         timeit.timeit("split_merge", setup="from __main__ import split_merge",
+                      number=500)))
+    print('Sort_merge: Sort time: {}\n'.format(
+        timeit.timeit("sort_merge", setup="from __main__ import sort_merge",
                       number=500)))
 
     # Test Reversed List
@@ -76,8 +115,11 @@ def main():
 
     result = split_merge(reversed_list)
     print("Reversed Set Result:\n", result)
-    print('\nSort time: {}\n'.format(
+    print('\nSplit_merge: Sort time: {}'.format(
         timeit.timeit("split_merge", setup="from __main__ import split_merge",
+                      number=500)))
+    print('Sort_merge: Sort time: {}\n'.format(
+        timeit.timeit("sort_merge", setup="from __main__ import sort_merge",
                       number=500)))
 
 if __name__ == '__main__':
