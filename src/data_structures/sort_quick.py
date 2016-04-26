@@ -2,6 +2,25 @@ import random
 import timeit
 
 
+def quicksort(the_list):
+    """Split a list and sort."""
+    result = split(the_list)
+    return result
+
+
+def split(the_list):
+    """Split a list on pivot."""
+    if len(the_list) > 1:
+        slipt_point = pivot(the_list)
+        left_list = the_list[:slipt_point]
+        print("left", left_list)
+        right_list = the_list[slipt_point + 1:]
+        print("right", right_list)
+        the_list = split(left_list) + [the_list[slipt_point]] + split(right_list)
+        print("the_list", the_list)
+    return the_list
+
+
 def pivot(the_list):
     """Choose pivot of a list, sort and reset pivot."""
     if len(the_list) > 1:
@@ -30,31 +49,16 @@ def pivot(the_list):
         return right_cursor
 
 
-def split(the_list):
-    """Split a list on pivot."""
-    if len(the_list) > 1:
-        slipt_point = pivot(the_list)
-        left_list = the_list[:slipt_point]
-        print("left", left_list)
-        right_list = the_list[slipt_point + 1:]
-        print("right", right_list)
-        the_list = split(left_list) + [the_list[slipt_point]] + split(right_list)
-        print("the_list", the_list)
-    return the_list
-
-
-def quicksort(the_list):
-    """Split a list and sort."""
-    result = split(the_list)
-    return result
-
-
 def main():
-    test_list = [random.randint(1, 10000) for i in range(1000)]
+    test_list = [random.randint(1, 1000) for i in range(1000)]
     print(test_list)
     result = quicksort(test_list)
-    print(result, timeit.timeit('quicksort', setup="from __main__ import quicksort", number=10000))
+    print(result, timeit.timeit('quicksort', setup="from __main__ import quicksort",
+                                number=10000))
 
+    # Test Random List
+    random_list = [random.randint(1, 1000) for i in range(10000)]
+    print("\nRandom Set:\n", random_list)
 
 if __name__ == '__main__':
     main()
