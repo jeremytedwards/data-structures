@@ -4,7 +4,7 @@ import timeit
 
 
 def sort_radix(origin_list):
-    if origin_list is None:
+    if len(origin_list) == 0:
         return origin_list
     radix = 10
     for i in range(len(str(max(origin_list)))):
