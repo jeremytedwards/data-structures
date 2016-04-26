@@ -2,6 +2,29 @@ import random
 import timeit
 
 
+
+def quicksort(the_list):
+    """Split a list and sort."""
+    result = split(the_list)
+    return result
+
+
+def split(the_list):
+    """Split a list on pivot."""
+    if len(the_list) > 1:
+        slipt_point = pivot(the_list)
+        left_list = the_list[:slipt_point]
+
+        # print("left", left_list)
+        right_list = the_list[slipt_point + 1:]
+
+        # print("right", right_list)
+        the_list = split(left_list) + [the_list[slipt_point]] + split(right_list)
+
+        # print("the_list", the_list)
+    return the_list
+
+
 def pivot(the_list):
     """Choose pivot of a list, sort and reset pivot."""
     if len(the_list) > 1:
@@ -28,28 +51,6 @@ def pivot(the_list):
         the_list[right_cursor] = temp
 
         return right_cursor
-
-
-def split(the_list):
-    """Split a list on pivot."""
-    if len(the_list) > 1:
-        slipt_point = pivot(the_list)
-        left_list = the_list[:slipt_point]
-
-        # print("left", left_list)
-        right_list = the_list[slipt_point + 1:]
-
-        # print("right", right_list)
-        the_list = split(left_list) + [the_list[slipt_point]] + split(right_list)
-
-        # print("the_list", the_list)
-    return the_list
-
-
-def quicksort(the_list):
-    """Split a list and sort."""
-    result = split(the_list)
-    return result
 
 
 def main():
