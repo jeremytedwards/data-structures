@@ -1,6 +1,6 @@
 # coding=utf-8
 import pytest
-from data_structures.sort_merge import split_merge
+from data_structures.sort_merge import split_merge, sort_merge
 
 
 TESTING_LISTS = [
@@ -18,5 +18,10 @@ TESTING_LISTS = [
 
 @pytest.mark.parametrize('items, result', TESTING_LISTS)
 def test_split_merge(items, result):
+    sorted_list = split_merge(items)
+    assert sorted_list == result
+
+@pytest.mark.parametrize('items, result', TESTING_LISTS)
+def test_sort_merge(items, result):
     sorted_list = split_merge(items)
     assert sorted_list == result
