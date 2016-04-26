@@ -52,6 +52,5 @@ def main():
         timeit.timeit("sort_insertion", setup="from __main__ import sort_insertion",
                       number=500)))
 
-
 if __name__ == '__main__':
     main()

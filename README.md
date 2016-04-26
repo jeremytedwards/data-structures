@@ -20,13 +20,27 @@
 
 ### Merge Sort: Testing
 
-...
+Merge sort is an efficient, general-purpose, comparison-based sorting algorithm. 
+Most implementations produce a stable sort, which means that the implementation 
+preserves the input order of equal elements in the sorted output. Merge sort 
+is a divide and conquer algorithm that was invented by John von Neumann in 1945.
+
+By running the following code in your console you'll see some TimeIt results
+for running an Merge Sort on a random, ordered, and reversed list of
+integers from 1 to 10,000.
 
 
 ```$ python sort_merge.py```
 
 
 ### Insertion Sort: Testing
+
+Insertion sort iterates, consuming one input element each repetition, and 
+growing a sorted output list. Each iteration, insertion sort removes one 
+element from the input data, finds the location it belongs within the sorted 
+list, and inserts it there. It repeats until no input elements remain.
+
+Sorting is typically done in-place, by iterating up the array, growing the sorted list behind it. At each array-position, it checks the value there against the largest value in the sorted list (which happens to be next to it, in the previous array-position checked). If larger, it leaves the element in place and moves to the next. If smaller, it finds the correct position within the sorted list, shifts all the larger values up to make a space, and inserts into that correct position.
 
 By running the following code in your console you'll see some TimeIt results
 for running an Insertion Sort on a random, ordered, and reversed list of
