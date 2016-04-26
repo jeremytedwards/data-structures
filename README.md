@@ -1,8 +1,25 @@
+
+
 # data-structures
 
 ## This project contains sample code for implementing the following structures:
 
+### Trie
+[![Build Status](https://travis-ci.org/jeremytedwards/data-structures.svg?branch=trie)](https://travis-ci.org/jeremytedwards/data-structures)
+
+A Trie, also called digital tree and sometimes radix tree or prefix tree (as they can 
+be searched by prefixes), is an ordered tree data structure that is used to store a 
+dynamic set or associative array where the keys are usually strings. Unlike a 
+binary search tree, no node in the tree stores the key associated with that node; 
+instead, its position in the tree defines the key with which it is associated. 
+All the descendants of a node have a common prefix of the string associated with 
+that node, and the root is associated with the empty string. Values are not necessarily 
+associated with every node. Rather, values tend only to be associated with leaves, 
+and with some inner nodes that correspond to keys of interest. 
+
+
 ### Radix Sort: Testing
+[![Build Status](https://travis-ci.org/jeremytedwards/data-structures.svg?branch=sort-radix)](https://travis-ci.org/jeremytedwards/data-structures)
 
 Radix sort is a non-comparative integer sorting algorithm that sorts data with integer 
 keys by grouping keys by the individual digits which share the same significant 
@@ -20,6 +37,7 @@ integers from 1 to 10,000.
 
 
 ### Quick Sort: Testing
+[![Build Status](https://travis-ci.org/jeremytedwards/data-structures.svg?branch=sort-quick)](https://travis-ci.org/jeremytedwards/data-structures)
 
 Quicksort is a divide and conquer algorithm. Quicksort first divides a large array 
 into two smaller sub-arrays: the low elements and the high elements. Quicksort can 
@@ -54,6 +72,7 @@ integers from 1 to 1,000.
 
 
 ### Merge Sort: Testing
+[![Build Status](https://travis-ci.org/jeremytedwards/data-structures.svg?branch=sort-merge)](https://travis-ci.org/jeremytedwards/data-structures)
 
 Merge sort is an efficient, general-purpose, comparison-based sorting algorithm. 
 Most implementations produce a stable sort, which means that the implementation 
@@ -69,6 +88,7 @@ integers from 1 to 10,000.
 
 
 ### Insertion Sort: Testing
+[![Build Status](https://travis-ci.org/jeremytedwards/data-structures.svg?branch=sort-insertion)](https://travis-ci.org/jeremytedwards/data-structures)
 
 Insertion sort iterates, consuming one input element each repetition, and 
 growing a sorted output list. Each iteration, insertion sort removes one 
@@ -86,6 +106,7 @@ integers from 1 to 10,000.
 
 
 ### Hash Table
+[![Build Status](https://travis-ci.org/jeremytedwards/data-structures.svg?branch=hash-table)](https://travis-ci.org/jeremytedwards/data-structures)
 
 This data structure, a hash table, is used to implement an associative 
 array, a structure that can map keys to values. A hash table uses a hash 
@@ -97,6 +118,7 @@ ht.set(key, val) - Stores the given val using the given key
 
 
 ### Binary Search Tree (BST)
+[![Build Status](https://travis-ci.org/jeremytedwards/data-structures.svg?branch=bst)](https://travis-ci.org/jeremytedwards/data-structures)
 
 This data structure, a binary tree, is a tree data structure in which each 
 node has at most two children, which are referred to as the left child 
