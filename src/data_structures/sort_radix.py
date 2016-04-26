@@ -4,6 +4,11 @@ import timeit
 
 
 def sort_radix(origin_list):
+    """
+    Takes a list and returns a sorted list using radix method
+    :param origin_list:
+    :return: origin_list sorted
+    """
     if len(origin_list) == 0:
         return origin_list
     radix = 10
@@ -24,7 +29,7 @@ def main():
                                 number=1000))
 
     # Test Random List
-    random_list = [random.randint(1, 1000) for i in range(10000)]
+    random_list = [random.randint(1, 10000) for i in range(10000)]
     print("\nRandom Set:\n", random_list)
 
     result = sort_radix(random_list)
@@ -34,7 +39,7 @@ def main():
                       number=500)))
 
     # Test Ordered List
-    ordered_list = [i + 1 for i in range(random.randint(1, 1000))]
+    ordered_list = [i + 1 for i in range(random.randint(1, 10000))]
     print("\nOrdered Set:\n", ordered_list)
 
     result = sort_radix(ordered_list)
@@ -44,7 +49,7 @@ def main():
                       number=500)))
 
     # Test Reversed List
-    reversed_list = [i for i in range(random.randint(1, 1000))][::-1]
+    reversed_list = [i for i in range(random.randint(1, 10000))][::-1]
     print("\nReversed Set:\n", reversed_list)
 
     result = sort_radix(reversed_list)

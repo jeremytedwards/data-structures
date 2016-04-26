@@ -4,8 +4,17 @@
 
 ### Radix Sort: Testing
 
-...
+Radix sort is a non-comparative integer sorting algorithm that sorts data with integer 
+keys by grouping keys by the individual digits which share the same significant 
+position and value. A positional notation is required, but because integers can 
+represent strings of characters (e.g., names or dates) and specially formatted 
+floating point numbers, radix sort is not limited to integers. 
 
+Radix sort dates back as far as 1887 to the work of Herman Hollerith on tabulating machines.
+
+By running the following code in your console you'll see some TimeIt results
+for running an Radix Sort on a random, ordered, and reversed list of
+integers from 1 to 10,000.
 
 ```$ python sort_radix.py```
 
