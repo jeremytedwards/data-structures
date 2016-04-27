@@ -25,7 +25,7 @@ class Trie(object):
                 self._key[token[0]].insert(token[1:])
             except KeyError:
                 self._key[token[0]] = Trie()
-                if token[1]:
+                if token[1:]:
                     self._key[token[0]].insert(token[1:])
                 else:
                     self._key[token[0]] = {"$": "$"}
