@@ -35,13 +35,16 @@ class Trie(object):
         Will return True if token is in the trie, False if not.
         """
         if token:
-            test_value = self._key.get(token[0], default=None)
-            if test_value is None:
+            try:
+                test_value = self._key[token[0]]
+                if test_value == "$":
+                    return True
+                else:
+                    self._key.contains(token[1:])
+            except KeyError:
                 return False
-            elif test_value == "$":
-                return True
-            else:
-                self._key[token[0]].contains(token[1:])
+
+
 
     def traversal(self, start):
         """"
