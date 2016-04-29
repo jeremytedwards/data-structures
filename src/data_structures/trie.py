@@ -19,16 +19,34 @@ class Trie(object):
         Will insert the value token into the trie. If character in token is already present,
         it will be ignored.
         """
+        # if token:
+        #     try:
+        #         test_value = self._key[token[0]]
+        #         self._key[token[0]].insert(token[1:])
+        #     except KeyError:
+        #         self._key[token[0]] = Trie()
+        #         if token[1]:
+        #             self._key[token[0]].insert(token[1:])
+        #         else:
+        #             self._key[token[0]] = {"$": "$"}
         if token:
-            try:
-                test_value = self._key[token[0]]
-                self._key[token[0]].insert(token[1:])
-            except KeyError:
-                self._key[token[0]] = Trie()
-                if token[1:]:
-                    self._key[token[0]].insert(token[1:])
-                else:
-                    self._key[token[0]] = {"$": "$"}
+            for char in token:
+                cursor = cursor.setdefault(char, {})
+            cursor["$"] = "$"
+        else:
+            return self._key
+
+
+            # try:
+            #     test_value = self._key[token[0]]
+            #     self._key[token[0]].insert(token[1:])
+            # except KeyError:
+            #     self._key[token[0]] = Trie()
+            #     if token[1:]:
+            #         self._key[token[0]].insert(token[1:])
+            #     else:
+            #         self._key[token[0]] = {"$": "$"}
+
 
     def contains(self, token):
         """

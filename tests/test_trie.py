@@ -1,12 +1,20 @@
-# coding=utf-8
+#coding=utf-8
 
 import pytest
 
+import __future__
+
 TRIE_TABLE = [
     ("baa", {"b": {"a": {"a": {"$": "$"}}}}),
-    ("bat", {'b': {'a': {'t': {'$': '$'}}}}),
-    ("ball", {'b': {'a': {'l': {'l': {'$': '$'}}}}}),
-]
+    # ("bat", {'b': {'a': {'t': {'$': '$'}}}}),
+    # ("ball", {'b': {'a': {'l': {'l': {'$': '$'}}}}}),
+
+# TRIE_TABLE = [
+#     ("baa", {"b": {"a": {"a": {"$": "$"}}}}),
+#     ("bat", {'b': {'a': {'t': {'$': '$'}}}}),
+#     ("ball", {'b': {'a': {'l': {'l': {'$': '$'}}}}}),
+
+# ]
 
 
 @pytest.mark.parametrize("test, result", TRIE_TABLE)
