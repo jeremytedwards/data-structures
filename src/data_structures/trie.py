@@ -37,6 +37,17 @@ class Trie(object):
             return self._key
 
 
+            # try:
+            #     test_value = self._key[token[0]]
+            #     self._key[token[0]].insert(token[1:])
+            # except KeyError:
+            #     self._key[token[0]] = Trie()
+            #     if token[1:]:
+            #         self._key[token[0]].insert(token[1:])
+            #     else:
+            #         self._key[token[0]] = {"$": "$"}
+
+
     def contains(self, token):
         """
         Will return True if token is in the trie, False if not.
