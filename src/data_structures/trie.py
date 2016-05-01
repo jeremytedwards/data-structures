@@ -58,3 +58,18 @@ class Trie(object):
                 for item in self.traversal(start[key], prefix + key):
                     yield item
 
+    def autocomplete(self, token):
+        """
+        Return a list of words starting with token.
+        """
+        val = self._key()
+        for key in token:
+            try:
+                val = val[key]
+            except KeyError:
+                return {}
+        collectable = [item for item in self.traversal(val, token)]
+        if len(collectable) <= 4:
+            return collectable
+        else:
+            return collectable[:4]

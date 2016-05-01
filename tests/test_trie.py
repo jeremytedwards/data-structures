@@ -42,3 +42,6 @@ def test_traversal():
     test_trie.insert("apple")
     test_trie.insert("apprentice")
     assert sorted([item for item in test_trie.traversal()]) == ['a', 'apple', 'apprentice']
+
+
+def test_autocomplete():
