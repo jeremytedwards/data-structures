@@ -44,11 +44,17 @@ class Trie(object):
             else:
                 return False
 
-
-
-    def traversal(self, start):
+    def traversal(self, start=None, prefix=''):
         """"
         Perform a full depth-first traversal of the graph beginning at start.
         Return: a generator containing all tokens in the trie.
         """
-        pass
+        if start is None:
+            start = self._key
+        for key in start:
+            if key == "$":
+                yield prefix
+            else:
+                for item in self.traversal(start[key], prefix + key):
+                    yield item
+

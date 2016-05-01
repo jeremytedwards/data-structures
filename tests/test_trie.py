@@ -33,3 +33,12 @@ def test_contains(test, result):
     test_trie = Trie()
     test_trie.insert("ballet")
     assert test_trie.contains(test) == result
+
+
+def test_traversal():
+    from data_structures.trie import Trie
+    test_trie = Trie()
+    test_trie.insert("a")
+    test_trie.insert("apple")
+    test_trie.insert("apprentice")
+    assert sorted([item for item in test_trie.traversal()]) == ['a', 'apple', 'apprentice']
