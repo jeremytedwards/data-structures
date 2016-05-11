@@ -1,5 +1,4 @@
 # coding=utf-8
-from collections import deque
 
 
 class Node(object):
@@ -201,7 +200,8 @@ class Node(object):
     #     self.left = self.left.lrotate()
     #     self = self.rrotate()
     #     return self
-    #
+
+
     def node_balance(self):
         print("(", self._left.get_balance_diff(), ") ", self.data, " (", self._right.get_balance_diff(), ")")
         if self.get_balance_diff() <= -2:
@@ -229,6 +229,7 @@ class Node(object):
 
             print("rotate RIGHT on: ", self.data)
             self._rotate_right()
+
         # if self._get_balance_diff() < -1:  # https://goo.gl/q0VorO
         #     # right tree is deeper
         #     # perform left rotation
@@ -290,7 +291,6 @@ class Node(object):
             self._left._insert(val)
             print(self._left.data, "< insert: ")
             self.node_balance()
-
 
     # def _get_dot(self):
     #     """recursively prepare a dot graph entry for this node."""
@@ -486,11 +486,6 @@ class Tree(object):
     def breadth_order(self):
         return self.root.breadth_order()
 
-
-
-
-
-
     # def get_dot(self):
     #     """return the tree with root 'self' as a dot graph for visualization"""
     #     return "digraph G{\n%s}" % ("" if self.root.data is None else (
@@ -499,3 +494,4 @@ class Tree(object):
     #             "\n".join(self.root._get_dot())
     #         )
     #     ))
+
