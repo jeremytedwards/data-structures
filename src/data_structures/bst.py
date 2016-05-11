@@ -203,31 +203,31 @@ class Node(object):
 
 
     def node_balance(self):
-        print("(", self._left.get_balance_diff(), ") ", self.data, " (", self._right.get_balance_diff(), ")")
+        # print("(", self._left.get_balance_diff(), ") ", self.data, " (", self._right.get_balance_diff(), ")")
         if self.get_balance_diff() <= -2:
             if self._right.get_balance_diff() <= -1:
-                print("rotate LEFT on: ", self._right.data)
+                # print("rotate LEFT on: ", self._right.data)
 
                 self._right._rotate_left()
             if self._right.get_balance_diff() >= 1:
-                print("rotate RIGHT on: ", self._right.data)
+                # print("rotate RIGHT on: ", self._right.data)
 
                 self._right._rotate_right()
 
-            print("rotate LEFT on: ", self.data)
+            # print("rotate LEFT on: ", self.data)
             self._rotate_left()
 
         elif self.get_balance_diff() >= 2:
             if self._left.get_balance_diff() >= 1:
-                print("rotate RIGHT on: ", self._left.data)
+                # print("rotate RIGHT on: ", self._left.data)
 
                 self._left._rotate_right()
             if self._left.get_balance_diff() <= -1:
-                print("rotate LEFT on: ", self._left.data)
+                # print("rotate LEFT on: ", self._left.data)
 
                 self._left._rotate_left()
 
-            print("rotate RIGHT on: ", self.data)
+            # print("rotate RIGHT on: ", self.data)
             self._rotate_right()
 
         # if self._get_balance_diff() < -1:  # https://goo.gl/q0VorO
@@ -271,10 +271,10 @@ class Node(object):
 
     def _insert(self, val):
         if val == self.data:
-            print("Equal. No balance: ", self.data)
+            # print("Equal. No balance: ", self.data)
             return
         elif self._left is None or self._right is None:
-            print("\nNone insert: ", val)
+            # print("\nNone insert: ", val)
             if val > self.data:
                 new_leaf = Node(val)
                 new_leaf._parent = self
@@ -285,11 +285,11 @@ class Node(object):
                 self._left = new_leaf
         elif val > self.data:
             self._right._insert(val)
-            print(self._right.data, "> insert: ")
+            # print(self._right.data, "> insert: ")
             self.node_balance()
         elif val < self.data:
             self._left._insert(val)
-            print(self._left.data, "< insert: ")
+            # print(self._left.data, "< insert: ")
             self.node_balance()
 
     # def _get_dot(self):
@@ -398,7 +398,7 @@ class Tree(object):
         node = Node(val)
         if self.root is None:
             self.root = node
-            print("\nInsert on Empty: ", node.data)
+            # print("\nInsert on Empty: ", node.data)
         else:
             self.root._insert(val)
 

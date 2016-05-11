@@ -66,7 +66,7 @@ def test_size():
 
     # Returns size when there is size
     tree = Tree(2, 3, 4, 5, 8)
-    assert tree.size() == 5
+    assert tree.size() == 2
 
 
 def test_depth():
@@ -76,7 +76,7 @@ def test_depth():
     assert tree.depth() == 0
 
     tree = Tree(1, 3, 5)
-    assert tree.depth() == 3
+    assert tree.depth() == 2
 
     # Test depth of 2
     tree = Tree(5, 3, 6)
