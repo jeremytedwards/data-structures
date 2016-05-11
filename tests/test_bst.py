@@ -63,6 +63,7 @@ def test_depth():
     tree = Tree(5, 3, 6, 8, 4)
     assert tree.depth() == 3
 
+
 # TODO: fix this test
 # def test_balance():
 #     """Test balance."""
