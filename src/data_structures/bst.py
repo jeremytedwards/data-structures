@@ -2,6 +2,7 @@
 from collections import deque
 import random
 
+
 class Node(object):
     """Create Node class."""
 
@@ -82,24 +83,24 @@ class Node(object):
             right_depth = 0
         return max(left_depth, right_depth) + 1
 
-    def _get_dot(self):
-        """recursively prepare a dot graph entry for this node."""
-        if self._left is not None:
-            yield "\t%s -> %s;" % (self.data, self._left.data)
-            for i in self._left._get_dot():
-                yield i
-        elif self._right is not None:
-            r = random.randint(0, 1e9)
-            yield "\tnull%s [shape=point];" % r
-            yield "\t%s -> null%s;" % (self.data, r)
-        if self._right is not None:
-            yield "\t%s -> %s;" % (self.data, self._right.data)
-            for i in self._right._get_dot():
-                yield i
-        elif self._left is not None:
-            r = random.randint(0, 1e9)
-            yield "\tnull%s [shape=point];" % r
-            yield "\t%s -> null%s;" % (self.data, r)
+    # def _get_dot(self):
+    #     """recursively prepare a dot graph entry for this node."""
+    #     if self._left is not None:
+    #         yield "\t%s -> %s;" % (self.data, self._left.data)
+    #         for i in self._left._get_dot():
+    #             yield i
+    #     elif self._right is not None:
+    #         r = random.randint(0, 1e9)
+    #         yield "\tnull%s [shape=point];" % r
+    #         yield "\t%s -> null%s;" % (self.data, r)
+    #     if self._right is not None:
+    #         yield "\t%s -> %s;" % (self.data, self._right.data)
+    #         for i in self._right._get_dot():
+    #             yield i
+    #     elif self._left is not None:
+    #         r = random.randint(0, 1e9)
+    #         yield "\tnull%s [shape=point];" % r
+    #         yield "\t%s -> null%s;" % (self.data, r)
 
 
 class Tree(object):
@@ -222,11 +223,11 @@ class Tree(object):
     def breadth_order(self):
         return self.root.breadth_order()
 
-    def get_dot(self):
-        """return the tree with root 'self' as a dot graph for visualization"""
-        return "digraph G{\n%s}" % ("" if self.root.data is None else (
-            "\t%s;\n%s\n" % (
-                self.root.data,
-                "\n".join(self.root._get_dot())
-            )
-        ))
+    # def get_dot(self):
+    #     """return the tree with root 'self' as a dot graph for visualization"""
+    #     return "digraph G{\n%s}" % ("" if self.root.data is None else (
+    #         "\t%s;\n%s\n" % (
+    #             self.root.data,
+    #             "\n".join(self.root._get_dot())
+    #         )
+    #     ))
