@@ -62,7 +62,7 @@ class Trie(object):
         """
         Return a list of words starting with token.
         """
-        val = self._key()
+        val = self._key
         for key in token:
             try:
                 val = val[key]

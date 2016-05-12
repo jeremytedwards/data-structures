@@ -44,4 +44,36 @@ def test_traversal():
     assert sorted([item for item in test_trie.traversal()]) == ['a', 'apple', 'apprentice']
 
 
-def test_autocomplete():
+def test_autocomplete_not_root():
+    """Test autocomplete not from root."""
+    from data_structures.trie import Trie
+    trie = Trie()
+    burn = "burn"
+    sfkj = "sfkj"
+    burneman = "burneman"
+    lol = "lol"
+    loled = "loled"
+    lol_s = "lol's"
+    word_list = [burn, sfkj, burneman, lol, loled, lol_s]
+    for indx in word_list:
+        trie.insert(indx)
+    auto = trie.autocomplete('lol')
+    assert lol_s in auto
+    assert loled in auto
+    assert lol in auto
+    assert sfkj not in auto
+
+
+def test_autocomplete_non_existent_token():
+    """Test that autocomplete returns empty list if token not in trie."""
+    from data_structures.trie import Trie
+    trie = Trie()
+    token1 = "burn"
+    token2 = "sfkj"
+    token3 = "burneman"
+    trie.insert(token1)
+    trie.insert(token2)
+    trie.insert(token3)
+    auto = trie.autocomplete('goal')
+    assert auto == {}
+
