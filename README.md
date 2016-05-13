@@ -17,6 +17,10 @@ that node, and the root is associated with the empty string. Values are not nece
 associated with every node. Rather, values tend only to be associated with leaves, 
 and with some inner nodes that correspond to keys of interest. 
 
+Autocomplete with Trie. A common application of a trie is storing a predictive text or autocomplete dictionary, such as found on google and cellphone autocomplete typing.
+
+
+
 
 ### Radix Sort: Testing
 [![Build Status](https://travis-ci.org/jeremytedwards/data-structures.svg?branch=sort-radix)](https://travis-ci.org/jeremytedwards/data-structures)
