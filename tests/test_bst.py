@@ -1,5 +1,6 @@
 # coding=utf-8
 from data_structures.bst import Tree
+import pytest
 
 
 def test_insert():
@@ -28,6 +29,19 @@ def test_insert():
         list_2.append(item)
     assert list_2 == result
 
+    # Test inserted node's parent
+    tree_3 = Tree(5, 7, 3, 8, 6)
+    tree_3.insert(4)
+    node = tree_3.find_node(4)
+    assert node._parent.data == 3
+
+# TODO: fix this test
+# def test_contains():
+#     """Test contains."""
+#     tree = Tree(2, 3, 4, 5)
+#     # will return True if val is in the BST, False if not.
+#     assert tree.contains(4) == True
+#     assert tree.contains(8) == False
 
 def test_contains():
     """Test contains."""
@@ -137,7 +151,17 @@ def test_breadth_order():
         result.append(each)
     assert result == tree_val
 
+
 # TODO: review this test
+    # tree_val_unordered = [5, 7, 3, 8, 6, 4, 1, 9, 2]
+    # tree_2 = Tree(*tree_val_unordered)
+    # result_2 = []
+    # for each in tree_2.breadth_order():
+    #     result_2.append(each)
+    # assert result_2 == tree_val
+
+
+# TODO: fix this test
 # def test_breadth_order_2():
 #     """Test breath order."""
 #     tree_val = [18, 8, 30, 6, 10, 40, 1, 7, 9, 15, 13]
@@ -231,3 +255,11 @@ def test_breadth_order():
 #     assert tree.root == None
 
 
+# def test_node_balance():
+#     nb_tree = Tree(18, 8, 20, 6, 10, 30, 1, 7, 9, 15)
+#     nb_tree.insert(13)
+#     result = []
+#     for each in nb_tree.breadth_order():
+#         result.append(each)
+#     expect = [10, 8, 18, 6, 9, 15, 20, 1, 7, 13, 30]
+#     assert result == expect
