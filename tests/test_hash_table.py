@@ -37,10 +37,17 @@ def test_hashtable_init(size, result):
     test_hash_table = HashTable(size)
     assert len(test_hash_table._storage) == result
 
+
 def test_hashtable_init_empty():
     from data_structures.hash_table import HashTable
     test_hash_table = HashTable(hash_size=0)
     assert len(test_hash_table._storage) == 0
+
+
+def test_hashtable_init_none():
+    from data_structures.hash_table import HashTable
+    test_hash_table = HashTable(hash_size=10)
+    assert test_hash_table.get(5) == None
 
 
 TEST_KEYS = [

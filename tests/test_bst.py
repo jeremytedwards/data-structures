@@ -73,7 +73,7 @@ def test_size():
 
     # Returns size when there is size
     tree = Tree(2, 3, 4, 5, 8)
-    assert tree.size() == 5
+    assert tree.size() == 2
 
 
 def test_depth():
@@ -83,7 +83,7 @@ def test_depth():
     assert tree.depth() == 0
 
     tree = Tree(1, 3, 5)
-    assert tree.depth() == 3
+    assert tree.depth() == 2
 
     # Test depth of 2
     tree = Tree(5, 3, 6)
@@ -152,6 +152,7 @@ def test_breadth_order():
     assert result == tree_val
 
 
+<<<<<<< HEAD
 # TODO: review this test
     # tree_val_unordered = [5, 7, 3, 8, 6, 4, 1, 9, 2]
     # tree_2 = Tree(*tree_val_unordered)
@@ -162,6 +163,7 @@ def test_breadth_order():
 
 
 # TODO: fix this test
+=======
 # def test_breadth_order_2():
 #     """Test breath order."""
 #     tree_val = [18, 8, 30, 6, 10, 40, 1, 7, 9, 15, 13]
@@ -171,6 +173,27 @@ def test_breadth_order():
 #         result.append(each)
 #     assert result == tree_val
 
+
+def test__gen_tree_from_ord_list():
+    test_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
+    tree = Tree(*test_list)
+
+    result = []
+    result_true = [6, 3, 2, 1, 5, 4, 9, 8, 7, 10]
+
+    for item in tree._gen_tree_from_ord_list(test_list):
+        result.append(item)
+    assert result_true == result
+
+# TODO: review this test
+# def test_breadth_order_2():
+#     """Test breath order."""
+#     tree_val = [18, 8, 30, 6, 10, 40, 1, 7, 9, 15, 13]
+#     tree = Tree(*tree_val)
+#     result = []
+#     for each in tree.breadth_order():
+#         result.append(each)
+#     assert result == tree_val
 
 # TODO: fix balance tests
 # def test_balance():
@@ -209,6 +232,61 @@ def test_breadth_order():
 #         result.append(item)
 #     assert result_true == result
 
+
+<<<<<<< HEAD
+=======
+def test_find():
+    tree = Tree(5, 3, 6, 8, 4, 9)
+    result = tree.find_node(3)
+    assert result.data == 3
+
+    tree = Tree(5, 3, 6, 8, 4, 9)
+    with pytest.raises(ValueError):
+        tree.find_node(7)
+
+
+def test_delete():
+    tree = Tree(5, 3, 6, 8, 4, 9, 2, 1, 0)
+    # delete a leaf
+    tree.delete(9)
+    with pytest.raises(ValueError):
+        tree.find_node(9)
+    # assert tree.find_node(8)._right is None
+
+    tree = Tree(5, 3, 6, 8, 4, 9, 2, 1, 0)
+    # delete node with only left child
+    # tree.delete(1)
+    with pytest.raises(ValueError):
+        tree.find_node(1)
+    assert tree.find_node(2)._left.data == 0
+
+    tree = Tree(5, 3, 6, 8, 4, 9, 2, 1, 0)
+    # delete a node with right or both child
+    tree.delete(3)
+    with pytest.raises(ValueError):
+        tree.find_node(3)
+    assert tree.find_node(5)._left.data == 4
+    assert tree.find_node(4)._left.data == 2
+
+    tree = Tree(5, 3, 6, 8, 4, 9, 2, 1, 0)
+    # delete a nonexistent value
+    with pytest.raises(ValueError):
+        tree.delete(7)
+
+    tree = Tree(10, 8, 12, 6, 11, 13)
+    # delete root node of tree > 1
+    tree.delete(10)
+    with pytest.raises(ValueError):
+        tree.find_node(10)
+    assert tree.root.data == 11
+    assert tree.find_node(12)._left is None
+
+    tree = Tree(10)
+    # delete root of tree == 1
+    tree.delete(10)
+    with pytest.raises(AttributeError):
+        tree.find_node(10)
+    assert tree.root is None
 
 # TODO: fix this test
 # def test_delete():

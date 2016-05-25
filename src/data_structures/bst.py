@@ -1,6 +1,4 @@
 # coding=utf-8
-from collections import deque
-
 
 
 class Node(object):
@@ -175,61 +173,34 @@ class Node(object):
         old_root._right = new_left_sub
         new_root._left = old_root
 
-    # def rrotate(self):
-    #     p = self.left
-    #     self.left = p.right
-    #     p.right = self
-    #     self = p
-    #     self.right.calheight()
-    #     self.calheight()
-    #     return self
-    #
-    # def lrotate(self):
-    #     p = self.right
-    #     self.right = p.left
-    #     p.left = self
-    #     self = p
-    #     self.left.calheight()
-    #     self.calheight()
-    #     return self
-    #
-    # def dlrotate(self):
-    #     self.right = self.right.rrotate()
-    #     self = self.lrotate()
-    #     return self
-    #
-    # def drrotate(self):
-    #     self.left = self.left.lrotate()
-    #     self = self.rrotate()
-    #     return self
-    #
     def node_balance(self):
-        print("(", self._left.get_balance_diff(), ") ", self.data, " (", self._right.get_balance_diff(), ")")
+        # print("(", self._left.get_balance_diff(), ") ", self.data, " (", self._right.get_balance_diff(), ")")
         if self.get_balance_diff() <= -2:
             if self._right.get_balance_diff() <= -1:
-                print("rotate LEFT on: ", self._right.data)
+                # print("rotate LEFT on: ", self._right.data)
 
                 self._right._rotate_left()
             if self._right.get_balance_diff() >= 1:
-                print("rotate RIGHT on: ", self._right.data)
+                # print("rotate RIGHT on: ", self._right.data)
 
                 self._right._rotate_right()
 
-            print("rotate LEFT on: ", self.data)
+            # print("rotate LEFT on: ", self.data)
             self._rotate_left()
 
         elif self.get_balance_diff() >= 2:
             if self._left.get_balance_diff() >= 1:
-                print("rotate RIGHT on: ", self._left.data)
+                # print("rotate RIGHT on: ", self._left.data)
 
                 self._left._rotate_right()
             if self._left.get_balance_diff() <= -1:
-                print("rotate LEFT on: ", self._left.data)
+                # print("rotate LEFT on: ", self._left.data)
 
                 self._left._rotate_left()
 
-            print("rotate RIGHT on: ", self.data)
+            # print("rotate RIGHT on: ", self.data)
             self._rotate_right()
+
         # if self._get_balance_diff() < -1:  # https://goo.gl/q0VorO
         #     # right tree is deeper
         #     # perform left rotation
@@ -271,10 +242,10 @@ class Node(object):
 
     def _insert(self, val):
         if val == self.data:
-            print("Equal. No balance: ", self.data)
+            # print("Equal. No balance: ", self.data)
             return
         elif self._left is None or self._right is None:
-            print("\nNone insert: ", val)
+            # print("\nNone insert: ", val)
             if val > self.data:
                 new_leaf = Node(val)
                 new_leaf._parent = self
@@ -285,11 +256,11 @@ class Node(object):
                 self._left = new_leaf
         elif val > self.data:
             self._right._insert(val)
-            print(self._right.data, "> insert: ")
+            # print(self._right.data, "> insert: ")
             self.node_balance()
         elif val < self.data:
             self._left._insert(val)
-            print(self._left.data, "< insert: ")
+            # print(self._left.data, "< insert: ")
             self.node_balance()
 
 

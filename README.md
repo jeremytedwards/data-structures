@@ -92,6 +92,13 @@ array, a structure that can map keys to values. A hash table uses a hash
 function to compute an index into an array of buckets or slots, from 
 which the desired value can be found.
 
+This implementation returns 'None' if you ask for a key that is not available.
+
+This implementation uses the "Additive Hash," the simplest algorithm for hashing. 
+It take a sequence of integral values (such as a string), it adds all of the characters 
+ordinal values together and then uses remainder of division (%Modulo) to find a 
+position in a fixed size data structure.
+
 ht.get(key) - Returns the value stored with the given key
 ht.set(key, val) - Stores the given val using the given key
 
