@@ -43,6 +43,14 @@ class Trie(object):
                 return True
             else:
                 return False
+            # try:
+            #     test_value = self._key[token[0]]
+            #     if test_value == "$":
+            #         return True
+            #     else:
+            #         self._key.contains(token[1:])
+            # except KeyError:
+            #     return False
 
     def traversal(self, start=None, prefix=''):
         """"

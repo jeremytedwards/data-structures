@@ -18,7 +18,8 @@ def test_insert(test, result):
     from data_structures.trie import Trie
     test_trie = Trie()
     assert test_trie.insert(test) == result
-
+    # ("bat", {'b': {'a': {'t': {'$': '$'}}}}),
+    # ("ball", {'b': {'a': {'l': {'l': {'$': '$'}}}}}),
 
 CONTAINS_TABLE = [
     ("ba", False),
@@ -44,4 +45,10 @@ def test_traversal():
     assert sorted([item for item in test_trie.traversal()]) == ['a', 'apple', 'apprentice']
 
 
-def test_autocomplete():
+# def test_autocomplete():
+# @pytest.mark.parametrize("test, result", CONTAINS_TABLE)
+# def test_contains(test, result):
+#     from data_structures.trie import Trie
+#     test_trie = Trie()
+#     test_trie.insert(test)
+#     assert test_trie.contains(result)

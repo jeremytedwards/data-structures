@@ -158,6 +158,7 @@ bst.post_order() - Returns the data of all nodes in post-order (all left, all ri
 bst.breadth_order() - Returns the data of all nodes in breadth-order (height=0, 1, 2, ...)
 
 ### Graph
+[![Build Status](https://travis-ci.org/jeremytedwards/data-structures.svg?branch=graph-traverse)](https://travis-ci.org/jeremytedwards/data-structures)
 
 Graphs(g) are used to record relationships between things. Popular uses of 
 graphs are mapping, social networks, chemical compounds and electrical 
@@ -174,6 +175,7 @@ of the graph, beginning at start. Return the full visited path when
 traversal is complete.
 
 ### WeightedGraph
+[![Build Status](https://travis-ci.org/jeremytedwards/data-structures.svg?branch=weighted-graph)](https://travis-ci.org/jeremytedwards/data-structures)
 
 A subclass of the above which can optionally store and provide weights for each
 edge. This class also supports shortest-path traversals for graphs with and without
@@ -193,6 +195,7 @@ vertices that you can then use to walk back to the provided vertex along the
 smallest weighted path.
 
 ### Binary Heap
+[![Build Status](https://travis-ci.org/jeremytedwards/data-structures.svg?branch=binheap)](https://travis-ci.org/jeremytedwards/data-structures)
 
 This data structure, Heap, is a specialized tree-based data structure that 
 satisfies the heap property: If A is a parent node of B then the key of 
@@ -201,30 +204,35 @@ applying across the heap. Fills from left to right. There are minHeap
 and maxHeap alternatives.
 
 ### Priority Queue
+[![Build Status](https://travis-ci.org/jeremytedwards/data-structures.svg?branch=priorityq)](https://travis-ci.org/jeremytedwards/data-structures)
 
 This data structure, a priority queue, is an abstract data type which is 
 like a regular queue or stack data structure, but where additionally each 
 element has a "priority" associated with it.
 
 ### Deque
+[![Build Status](https://travis-ci.org/jeremytedwards/data-structures.svg?branch=deque)](https://travis-ci.org/jeremytedwards/data-structures)
 
 This data structure, Deque (usually pronounced like "deck"), is an irregular acronym of double-ended 
 queue. Double-ended queues are sequence containers with dynamic sizes that can be expanded or 
 contracted on both ends (either its FRONT(head) or REAR(tail)).
 
 ### Queue
+[![Build Status](https://travis-ci.org/jeremytedwards/data-structures.svg?branch=queue)](https://travis-ci.org/jeremytedwards/data-structures)
 
 This data structure, a Queue, is an abstract data type or a linear data structure, in which the first element is 
 inserted from one end called REAR(or tail), and the deletion of existing element takes place from the other end 
 called as FRONT(or head).
 
 ### Doubly Linked List
+[![Build Status](https://travis-ci.org/jeremytedwards/data-structures.svg?branch=dll)](https://travis-ci.org/jeremytedwards/data-structures)
 
 This data structure is a linked data structure that consists of a set of sequentially linked records called nodes. Each 
 node contains two fields, called _next and _prev, that are references to the previous(_prev) and to the next(_next) node 
 in the sequence of nodes.
 
 ### Stack
+[![Build Status](https://travis-ci.org/jeremytedwards/data-structures.svg?branch=stack)](https://travis-ci.org/jeremytedwards/data-structures)
 
 This data structure that allows for a Last In First Out (LIFO) access to a collection of objects (nodes), each containing
 a link to its successor and a piece of data. Access is given through the methods push(), adding an item to the stack,
@@ -232,6 +240,7 @@ or pop(), removing an item from the stack.
 
 
 ### Linked List
+[![Build Status](https://travis-ci.org/jeremytedwards/data-structures.svg?branch=linked_list)](https://travis-ci.org/jeremytedwards/data-structures)
 
 This data structure has an ordered set of data elements (nodes), each containing a link to its successor and a piece of data.
 

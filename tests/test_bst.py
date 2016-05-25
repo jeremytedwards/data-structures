@@ -1,5 +1,4 @@
 # coding=utf-8
-
 from data_structures.bst import Tree
 import pytest
 
@@ -36,30 +35,48 @@ def test_insert():
     node = tree_3.find_node(4)
     assert node._parent.data == 3
 
-# TODO: fix this test
-# def test_contains():
-#     """Test contains."""
-#     tree = Tree(2, 3, 4, 5)
-#     # will return True if val is in the BST, False if not.
-#     assert tree.contains(4) == True
-#     assert tree.contains(8) == False
 
-# TODO: fix this test
-# def test_size():
-#     """Test size."""
-#     # Returns 0 when empty
-#     tree = Tree()
-#     assert tree.size() == 0
-#
-#     # Returns size when there is size
-#     tree = Tree(2, 3, 4, 5, 8)
-#     assert tree.size() == 5
+def test_contains():
+    """Test contains."""
+    tree = Tree()
+    tree.contains(4) == False
+
+    tree = Tree(5)
+    assert tree.contains(5) == True
+    assert tree.contains(4) == False
+
+    tree = Tree(5, 3, 6, 8, 4, 9)
+    # will return True if val is in the BST, False if not.
+    assert tree.contains(3) == True
+    assert tree.contains(4) == True
+    assert tree.contains(6) == True
+    assert tree.contains(9) == True
+    assert tree.contains(1) == False
+    assert tree.contains(10) == False
+
+
+def test_size():
+    """Test size."""
+    # Returns 0 when empty
+    tree = Tree()
+    assert tree.size() == 0
+
+    tree = Tree(3, 2)
+    assert tree.size() == 2
+
+    # Returns size when there is size
+    tree = Tree(2, 3, 4, 5, 8)
+    assert tree.size() == 2
+
 
 def test_depth():
     """Test depth."""
     # Test depth of 0
     tree = Tree()
     assert tree.depth() == 0
+
+    tree = Tree(1, 3, 5)
+    assert tree.depth() == 2
 
     # Test depth of 2
     tree = Tree(5, 3, 6)
@@ -68,21 +85,6 @@ def test_depth():
     # Test depth of 3
     tree = Tree(5, 3, 6, 8, 4)
     assert tree.depth() == 3
-
-# TODO: fix this test
-# def test_balance():
-#     """Test balance."""
-#     # An ideally-balanced tree should return 0.
-#     tree = Tree(5, 3, 6, 8, 4)
-#     assert tree.balance() == 0
-#
-#     # Trees which are higher on the _left than the _right should return a positive value
-#     tree = Tree(5, 3, 6, 8, 4, 9)
-#     assert tree.balance() == 1
-#
-#     # Trees which are higher on the _right than the _left should return a negative value
-#     tree = Tree(5, 3, 6, 8, 4, 9, 2, 1, 0)
-#     assert tree.balance() == -1
 
 
 def test_in_order():
@@ -142,15 +144,8 @@ def test_breadth_order():
         result.append(each)
     assert result == tree_val
 
-    # tree_val_unordered = [5, 7, 3, 8, 6, 4, 1, 9, 2]
-    # tree_2 = Tree(*tree_val_unordered)
-    # result_2 = []
-    # for each in tree_2.breadth_order():
-    #     result_2.append(each)
-    # assert result_2 == tree_val
 
-
-# TODO: fix this test
+# TODO: review this test
 # def test_breadth_order_2():
 #     """Test breath order."""
 #     tree_val = [18, 8, 30, 6, 10, 40, 1, 7, 9, 15, 13]
@@ -161,17 +156,29 @@ def test_breadth_order():
 #     assert result == tree_val
 
 
-def test__gen_tree_from_ord_list():
-    test_list = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
-    tree = Tree(*test_list)
+# TODO: fix balance tests
+# def test_balance():
+#     """Test balance."""
+#     # An ideally-balanced tree should return 0.
+#     tree = Tree(5, 3, 6, 8, 4)
+#     assert tree.balance() == 0
+#
+#     # Trees which are higher on the _left than the _right should return a positive value
+#     tree = Tree(5, 3, 6, 8, 4, 9)
+#     assert tree.balance() == 1
+#
+#     # Trees which are higher on the _right than the _left should return a negative value
+#     tree = Tree(5, 3, 6, 8, 4, 9, 2, 1, 0)
+#     assert tree.balance() == -1
 
-    result = []
-    result_true = [6, 3, 2, 1, 5, 4, 9, 8, 7, 10]
-
-    for item in tree._gen_tree_from_ord_list(test_list):
-        result.append(item)
-    assert result_true == result
-
+# def test_node_balance():
+#     nb_tree = Tree(18, 8, 20, 6, 10, 30, 1, 7, 9, 15)
+#     nb_tree.insert(13)
+#     result = []
+#     for each in nb_tree.breadth_order():
+#         result.append(each)
+#     expect = [10, 8, 18, 6, 9, 15, 20, 1, 7, 13, 30]
+#     assert result == expect
 
 # def test__balance_tree():
 #     test_tree = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]
@@ -186,15 +193,6 @@ def test__gen_tree_from_ord_list():
 #         result.append(item)
 #     assert result_true == result
 
-
-def test_find():
-    tree = Tree(5, 3, 6, 8, 4, 9)
-    result = tree.find_node(3)
-    assert result.data == 3
-
-    tree = Tree(5, 3, 6, 8, 4, 9)
-    with pytest.raises(ValueError):
-        tree.find_node(7)
 
 # TODO: fix this test
 # def test_delete():
@@ -240,12 +238,3 @@ def test_find():
 #         tree.find_node(10)
 #     assert tree.root == None
 
-
-# def test_node_balance():
-#     nb_tree = Tree(18, 8, 20, 6, 10, 30, 1, 7, 9, 15)
-#     nb_tree.insert(13)
-#     result = []
-#     for each in nb_tree.breadth_order():
-#         result.append(each)
-#     expect = [10, 8, 18, 6, 9, 15, 20, 1, 7, 13, 30]
-#     assert result == expect
