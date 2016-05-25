@@ -35,6 +35,7 @@ def test_insert():
     node = tree_3.find_node(4)
     assert node._parent.data == 3
 
+<<<<<<< HEAD
 # TODO: fix this test
 # def test_contains():
 #     """Test contains."""
@@ -43,6 +44,8 @@ def test_insert():
 #     assert tree.contains(4) == True
 #     assert tree.contains(8) == False
 
+=======
+>>>>>>> sort-insertion
 def test_contains():
     """Test contains."""
     tree = Tree()
@@ -153,6 +156,7 @@ def test_breadth_order():
 
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 # TODO: review this test
     # tree_val_unordered = [5, 7, 3, 8, 6, 4, 1, 9, 2]
     # tree_2 = Tree(*tree_val_unordered)
@@ -164,6 +168,8 @@ def test_breadth_order():
 
 # TODO: fix this test
 =======
+=======
+>>>>>>> sort-insertion
 # def test_breadth_order_2():
 #     """Test breath order."""
 #     tree_val = [18, 8, 30, 6, 10, 40, 1, 7, 9, 15, 13]
@@ -232,9 +238,6 @@ def test__gen_tree_from_ord_list():
 #         result.append(item)
 #     assert result_true == result
 
-
-<<<<<<< HEAD
-=======
 def test_find():
     tree = Tree(5, 3, 6, 8, 4, 9)
     result = tree.find_node(3)
@@ -331,7 +334,6 @@ def test_delete():
 #     with pytest.raises(AttributeError):
 #         tree.find_node(10)
 #     assert tree.root == None
-
 
 # def test_node_balance():
 #     nb_tree = Tree(18, 8, 20, 6, 10, 30, 1, 7, 9, 15)

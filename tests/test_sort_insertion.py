@@ -20,3 +20,5 @@ TESTING_LISTS = [
 def test_sort_insertion(items, result):
     sorted_list = sort_insertion(items)
     assert sorted_list == result
+
+
