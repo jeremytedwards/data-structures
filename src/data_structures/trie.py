@@ -19,54 +19,65 @@ class Trie(object):
         Will insert the value token into the trie. If character in token is already present,
         it will be ignored.
         """
-        # if token:
-        #     try:
-        #         test_value = self._key[token[0]]
-        #         self._key[token[0]].insert(token[1:])
-        #     except KeyError:
-        #         self._key[token[0]] = Trie()
-        #         if token[1]:
-        #             self._key[token[0]].insert(token[1:])
-        #         else:
-        #             self._key[token[0]] = {"$": "$"}
         if token:
+            cursor = self._key
             for char in token:
                 cursor = cursor.setdefault(char, {})
             cursor["$"] = "$"
+            return self._key
         else:
             return self._key
-
-
-            # try:
-            #     test_value = self._key[token[0]]
-            #     self._key[token[0]].insert(token[1:])
-            # except KeyError:
-            #     self._key[token[0]] = Trie()
-            #     if token[1:]:
-            #         self._key[token[0]].insert(token[1:])
-            #     else:
-            #         self._key[token[0]] = {"$": "$"}
-
 
     def contains(self, token):
         """
         Will return True if token is in the trie, False if not.
         """
         if token:
-            try:
-                test_value = self._key[token[0]]
-                if test_value == "$":
-                    return True
+            cursor = self._key
+            for char in token:
+                if char in cursor:
+                    cursor = cursor[char]
                 else:
-                    self._key.contains(token[1:])
-            except KeyError:
+                    return False
+            if "$" in cursor:
+                return True
+            else:
                 return False
+            # try:
+            #     test_value = self._key[token[0]]
+            #     if test_value == "$":
+            #         return True
+            #     else:
+            #         self._key.contains(token[1:])
+            # except KeyError:
+            #     return False
 
-
-
-    def traversal(self, start):
+    def traversal(self, start=None, prefix=''):
         """"
         Perform a full depth-first traversal of the graph beginning at start.
         Return: a generator containing all tokens in the trie.
         """
-        pass
+        if start is None:
+            start = self._key
+        for key in start:
+            if key == "$":
+                yield prefix
+            else:
+                for item in self.traversal(start[key], prefix + key):
+                    yield item
+
+    def autocomplete(self, token):
+        """
+        Return a list of words starting with token.
+        """
+        val = self._key()
+        for key in token:
+            try:
+                val = val[key]
+            except KeyError:
+                return {}
+        collectable = [item for item in self.traversal(val, token)]
+        if len(collectable) <= 4:
+            return collectable
+        else:
+            return collectable[:4]
