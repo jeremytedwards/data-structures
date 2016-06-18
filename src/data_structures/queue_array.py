@@ -18,7 +18,7 @@ class ArrayQueue(object):
         """
         return the size of the queue. Should return 0 if the queue is empty.
         """
-        return len(self._list)
+        return self._N
 
     def enqueue(self, item):
         """
@@ -39,14 +39,14 @@ class ArrayQueue(object):
         self._N -= 1
         return return_item
 
-    def peek(self):
-        """
-        returns the next value in the queue without dequeueing it. If the queue is
-        empty, returns None
-        """
-        if len(self._list):
-            return None
-        else:
-            return next(iter(self._list))
+    # def peek(self):
+    #     """
+    #     returns the next value in the queue without dequeueing it. If the queue is
+    #     empty, returns None
+    #     """
+    #     if len(self._list):
+    #         return None
+    #     else:
+    #         return next(iter(self._list))
 
     size = __len__
