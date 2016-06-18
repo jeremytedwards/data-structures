@@ -4,7 +4,6 @@ from builtins import next
 
 from .dll import Dll
 
-
 class Queue(object):
     def __init__(self, items=()):
         self._list = Dll()
@@ -44,3 +43,4 @@ class Queue(object):
             return next(iter(self._list))
 
     size = __len__
+

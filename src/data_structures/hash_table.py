@@ -36,3 +36,4 @@ class HashTable(object):
         this method prefers a string or integer.
         """
         return sum([ord(c) for c in str(key)]) % self._size
+raise
